@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'Sistema de Inscripcion EPG',
-    'title_prefix' => 'Inscripcion |',
+    'title' => 'ComoCancha',
+    'title_prefix' => 'Inicio |',
     'title_postfix' => '',
 
     /*
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Plan</b> Estratégico',
+    'logo' => '<b>Como</b> Cancha',
     'logo_img' => 'vendor/adminlte/dist/img/Logoepg-unprg.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Inscripción EPG',
+    'logo_img_alt' => 'ComoCancha',
 
     /*
     |--------------------------------------------------------------------------
@@ -319,7 +319,12 @@ return [
             //'label_color' => 'success',
         ],
         [
-            'text' => 'Plan estratégico',
+            'text' => 'Canchas',
+            'url'  => '#',
+            'icon' => 'fa fa-list',
+        ],
+        [
+            'text' => 'Proveedores',
             'url'  => '#',
             'icon' => 'fa fa-list',
         ],

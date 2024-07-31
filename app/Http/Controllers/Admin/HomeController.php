@@ -22,11 +22,9 @@ class HomeController extends Controller
     //
     public function index()
     {
-
-
-
+        $canchas = Canchas::all();
         // Devolver la vista 'dashboard' con los datos necesarios
-        return view('admin.index');
+        return view('admin.index', compact($canchas));
     }
 
     public function showDashboard()

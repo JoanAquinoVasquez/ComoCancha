@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User; // Asegúrate de importar la clase User
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,11 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Joan Aquino Vasquez',
                 'email' => 'jaquinov@unprg.edu.pe',
                 'password' => bcrypt('jaquinov'),
+            ],
+            [
+                'name' => 'Walter Galan Vite',
+                'email' => 'wgalanv@unprg.edu.pe',
+                'password' => bcrypt('wgalanv'),
             ],
 
             // Añadir más usuarios según sea necesario

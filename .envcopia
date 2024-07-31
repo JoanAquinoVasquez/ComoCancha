@@ -1,4 +1,4 @@
-APP_NAME=Gerencia_estrategica
+APP_NAME=ComoCancha
 APP_ENV=local
 APP_KEY=base64:VFNjq+pGIut/j3sG99o0gpM4hVZWlricmEYinvgd0hE=
 APP_DEBUG=true
