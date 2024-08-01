@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('dia');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->foreignId('id_cancha')->constrained('cancha');
+            $table->foreignId('cancha_id')->constrained('cancha');
         });
     }
 

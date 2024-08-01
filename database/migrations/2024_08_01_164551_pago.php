@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('fecha');
             $table->string('metodo')->nullable();
             $table->boolean('estado');
-            $table->foreignId('id_reserva')->constrained('reserva');
+            $table->foreignId('reserva_id')->constrained('reserva');
         });
     }
 

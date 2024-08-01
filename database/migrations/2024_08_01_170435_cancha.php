@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('ubicacion');
             $table->string('precioporhora');
             $table->string('descripcion');
-            $table->foreignId('id_cliente')->constrained('cliente');
-            $table->foreignId('id_deporte')->constrained('deporte');
+            $table->foreignId('cliente_id')->constrained('cliente');
+            $table->foreignId('deporte_id')->constrained('deporte');
         });
     }
 

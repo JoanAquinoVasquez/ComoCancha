@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        schema::create('sede', function (Blueprint $table) {
+        Schema::create('reserva', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('telefono')->nullable();
-            $table->string('correo')->nullable();
-            $table->string('pais');
-            $table->string('departamento');
-            $table->string('provincia');
-            $table->string('distrito');
-            $table->string('direccion');
+            $table->timestamp('fecha_reserva');
+            $table->timestamp('hora_inicio');
+            $table->timestamp('hora_fin');
             $table->foreignId('cliente_id')->constrained('cliente');
+            $table->foreignId('cancha_id')->constrained('cancha');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sede');
+        Schema::dropIfExists('reserva');
     }
 };
+?>

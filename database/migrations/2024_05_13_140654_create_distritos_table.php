@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        schema::create('pais', function (Blueprint $table) {
-            $table->id();
+        Schema::create('distritos', function (Blueprint $table) {
+            $table->unsignedBigInteger('id')->primary();
             $table->string('nombre');
+            $table->foreignId('id_provincia')->constrained('provincias');
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pais');
+        Schema::dropIfExists('distritos');
     }
 };
