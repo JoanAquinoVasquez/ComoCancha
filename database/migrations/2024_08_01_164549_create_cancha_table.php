@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('tipo');
             $table->string('ubicacion');
-            $table->decimal('precioporhora', 8, 2);
+            $table->decimal('precioporhora', 8, 2);
             $table->string('descripcion');
             $table->foreignId('cliente_id')->constrained('cliente');
             $table->foreignId('deporte_id')->constrained('deporte');

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         schema::create('pago', function (Blueprint $table) {
             $table->id();
-            $table->decimal('monto', 8, 2);
-            $table->timestamp('fecha');
+            $table->decimal('monto', 8, 2);
+            $table->date('fecha');
             $table->string('metodo')->nullable();
             $table->boolean('estado');
             $table->foreignId('reserva_id')->constrained('reserva');

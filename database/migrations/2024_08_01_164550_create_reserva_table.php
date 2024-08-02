@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('reserva', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('fecha_reserva');
-            $table->timestamp('hora_inicio');
-            $table->timestamp('hora_fin');
-            $table->string('estado');
+            $table->date('fecha_reserva');
+            $table->time('hora_inicio');
+            $table->time('hora_fin');
+            $table->integer('estado');
             $table->foreignId('cliente_id')->constrained('cliente');
             $table->foreignId('cancha_id')->constrained('cancha');
             $table->timestamps();

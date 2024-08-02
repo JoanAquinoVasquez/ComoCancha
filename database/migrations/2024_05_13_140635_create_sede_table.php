@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         schema::create('sede', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('nombre');
-            $table->string('telefono')->nullable();
+            $table->integer('telefono')->nullable();
             $table->string('correo')->nullable();
-            $table->string('pais');
             $table->string('departamento');
             $table->string('provincia');
             $table->string('distrito');
