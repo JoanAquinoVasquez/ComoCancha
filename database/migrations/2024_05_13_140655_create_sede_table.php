@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->integer('telefono')->nullable();
             $table->string('correo')->nullable();
-            $table->string('departamento');
-            $table->string('provincia');
-            $table->string('distrito');
             $table->string('direccion');
+            $table->foreignId('distrito_id')->constrained('distrito');
         });
     }
 
