@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reserva', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->timestamp('fecha_reserva');
             $table->timestamp('hora_inicio');
             $table->timestamp('hora_fin');
             $table->string('estado');
-            $table->foreignId('id_cliente')->constrained('cliente');
-            $table->foreignId('id_cancha')->constrained('cancha');
+            $table->foreignId('cliente_id')->constrained('cliente');
+            $table->foreignId('cancha_id')->constrained('cancha');
             $table->timestamps();
         });
     }

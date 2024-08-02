@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         schema::create('deporte', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->foreignId('id_administrador')->constrained('administrador');
         });
     }
 

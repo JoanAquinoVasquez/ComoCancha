@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('provincia', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('nombre');
-            $table->foreignId('id_departamento')->constrained('departamento');
+            $table->foreignId('departamento_id')->constrained('departamento');
         });
     }
 

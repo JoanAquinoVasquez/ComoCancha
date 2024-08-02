@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         schema::create('cancha', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('tipo');
             $table->string('ubicacion');
-            $table->string('precioporhora');
+            $table->decimal('precioporhora', 8, 2);
             $table->string('descripcion');
-            $table->foreignId('id_cliente')->constrained('cliente');
-            $table->foreignId('id_deporte')->constrained('deporte');
+            $table->foreignId('cliente_id')->constrained('cliente');
+            $table->foreignId('deporte_id')->constrained('deporte');
         });
     }
 

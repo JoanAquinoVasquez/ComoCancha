@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         schema::create('horario', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('dia');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->foreignId('id_cancha')->constrained('cancha');
+            $table->foreignId('cancha_id')->constrained('cancha');
         });
     }
 

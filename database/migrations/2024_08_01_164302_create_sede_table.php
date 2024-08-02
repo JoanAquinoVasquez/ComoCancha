@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('provincia');
             $table->string('distrito');
             $table->string('direccion');
-            $table->foreignId('cliente_id')->constrained('cliente');
         });
     }
 

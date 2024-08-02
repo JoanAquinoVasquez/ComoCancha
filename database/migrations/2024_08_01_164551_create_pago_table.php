@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         schema::create('pago', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
-            $table->string('monto');
+            $table->id();
+            $table->decimal('monto', 8, 2);
             $table->timestamp('fecha');
             $table->string('metodo')->nullable();
             $table->boolean('estado');

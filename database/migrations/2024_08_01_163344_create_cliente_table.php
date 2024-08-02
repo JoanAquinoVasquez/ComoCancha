@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         schema::create('cliente', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('nombre');
             $table->string('email')->unique();
             $table->string('telefono')->nullable();
