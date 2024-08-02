@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('provincias', function (Blueprint $table) {
+        Schema::create('provincia', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
             $table->string('nombre');
-            $table->foreignId('id_departamento')->constrained('departamentos');
+            $table->foreignId('id_departamento')->constrained('departamento');
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('provincias');
+        Schema::dropIfExists('provincia');
     }
 };

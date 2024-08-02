@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departamento', function (Blueprint $table) {
+        schema::create('pago', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
-            $table->string('nombre');
+            $table->string('monto');
+            $table->timestamp('fecha');
+            $table->string('metodo')->nullable();
+            $table->boolean('estado');
+            $table->foreignId('reserva_id')->constrained('reserva');
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('departamento');
+        Schema::dropIfExists('pago');
     }
 };

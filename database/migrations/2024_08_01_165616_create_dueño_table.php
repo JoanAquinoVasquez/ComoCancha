@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departamento', function (Blueprint $table) {
+        schema::create('dueño', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
             $table->string('nombre');
+            $table->string('email')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('contrasena');
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('departamento');
+        Schema::dropIfExists('dueño');
     }
 };

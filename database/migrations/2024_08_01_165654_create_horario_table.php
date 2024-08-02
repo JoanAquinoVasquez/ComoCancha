@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departamento', function (Blueprint $table) {
+        schema::create('horario', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
-            $table->string('nombre');
+            $table->string('dia');
+            $table->time('hora_inicio');
+            $table->time('hora_fin');
+            $table->foreignId('id_cancha')->constrained('cancha');
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('departamento');
+        schema::dropIfExists('horario');
     }
 };

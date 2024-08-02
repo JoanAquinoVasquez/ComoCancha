@@ -11,18 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departamento', function (Blueprint $table) {
+        schema::create('cancha', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
-            $table->string('nombre');
+            $table->string('tipo');
+            $table->string('ubicacion');
+            $table->string('precioporhora');
+            $table->string('descripcion');
+            $table->foreignId('id_cliente')->constrained('cliente');
+            $table->foreignId('id_deporte')->constrained('deporte');
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('departamento');
+        Schema::dropIfExists('cancha');
     }
 };
