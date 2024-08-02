@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->integer('telefono')->nullable();
-            $table->string('correo')->nullable();
+            $table->string('email')->nullable();
             $table->string('direccion');
             $table->foreignId('distrito_id')->constrained('distrito');
         });
