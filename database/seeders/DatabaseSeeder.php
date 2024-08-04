@@ -2,35 +2,23 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User; // Asegúrate de importar la clase User
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-
-        $users = [
-            [
-                'name' => 'Joan Aquino Vasquez',
-                'email' => 'jaquinov@unprg.edu.pe',
-                'password' => bcrypt('jaquinov'),
-            ],
-            [
-                'name' => 'Walter Galan Vite',
-                'email' => 'wgalanv@unprg.edu.pe',
-                'password' => bcrypt('wgalanv'),
-            ],
-
-            // Añadir más usuarios según sea necesario
-        ];
-
-        foreach ($users as $user) {
-            User::create($user);
-        }
+        $this->call([
+           // DepartamentoSeeder::class,
+            DeporteSeeder::class,
+           // ProvinciaSeeder::class,
+            //DistritoSeeder::class,
+            CanchaSeeder::class,
+            SedeSeeder::class,
+            ReservaSeeder::class,
+            PagoSeeder::class,
+            HorarioSeeder::class,
+            
+        ]);
     }
 }

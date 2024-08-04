@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Deporte extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
 
     protected $fillable = ['nombre', 'descripcion'];
+    protected $table = 'deporte';
 
     public function canchas()
     {

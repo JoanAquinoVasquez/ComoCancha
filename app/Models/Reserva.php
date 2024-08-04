@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Reserva extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
-    protected $fillable = ['fecha_reserva', 'hora_inicio', 'hora_fin', 'estado', 'users_id', 'cancha_id'];
+    protected $fillable = ['fecha_reserva', 'hora_inicio', 'hora_fin', 'estado', 'user_id', 'cancha_id'];
+    protected $table = 'reserva';
 
     public function user()
     {

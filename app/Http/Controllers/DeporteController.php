@@ -56,6 +56,6 @@ class DeporteController extends Controller
     {
         $deporte = Deporte::findOrFail($id);
         $deporte->delete();
-        return response()->json(null, 204);
+        return response()->json(null, 204);
     }
 }

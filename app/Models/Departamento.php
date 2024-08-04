@@ -10,6 +10,8 @@ class Departamento extends Model
     use HasFactory;
 
     protected $fillable = ['nombre'];
+    protected $table = 'departamento'; // Asegúrate de que esta línea esté presente
+
 
     public function provincias()
     {

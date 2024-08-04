@@ -45,6 +45,6 @@ class ProvinciaController extends Controller
     {
         $provincia = Provincia::findOrFail($id);
         $provincia->delete();
-        return response()->json(null, 204);
+        return response()->json(null, 204);
     }
 }

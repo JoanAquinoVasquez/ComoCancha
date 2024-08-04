@@ -9,7 +9,11 @@ class Cancha extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipo', 'ubicacion', 'precioporhora', 'descripcion', 'users_id', 'deporte_id'];
+    public $timestamps = false;
+
+    protected $fillable = ['tipo', 'ubicacion', 'precioporhora', 'descripcion', 'user_id', 'deporte_id'];
+
+    protected $table = 'cancha';
 
     public function user()
     {

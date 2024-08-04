@@ -17,10 +17,10 @@ class ReservaController extends Controller
     {
         $validatedData = $request->validate([
             'fecha_reserva' => 'required|date',
-            'hora_inicio' => 'required|time',
-            'hora_fin' => 'required|time',
+            'hora_inicio' => 'required|date_format:H:i:s',
+            'hora_fin' => 'required|date_format:H:i:s',
             'estado' => 'required|integer',
-            'cliente_id' => 'required|exists:cliente,id',
+            'user_id' => 'required|exists:user,id',
             'cancha_id' => 'required|exists:cancha,id',
         ]);
 

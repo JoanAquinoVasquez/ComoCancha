@@ -45,6 +45,6 @@ class DistritoController extends Controller
     {
         $distrito = Distrito::findOrFail($id);
         $distrito->delete();
-        return response()->json(null, 204);
+        return response()->json(null, 204);
     }
 }
