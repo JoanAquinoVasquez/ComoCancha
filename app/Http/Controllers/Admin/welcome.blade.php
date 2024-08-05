@@ -60,7 +60,7 @@
 
             <!-- Columna para la imagen grande -->
             <div class="col-md-7 no-padding">
-                <img src="img/canchas.jpg" alt="Imagen Grande" class="full-width-img">
+                <img src="img/epg.jpg" alt="Imagen Grande" class="full-width-img">
             </div>
 
 
@@ -78,7 +78,7 @@
                         </div>
                     @endif
                 </div>
-                <img src="img/comocancha.png" alt="Imagen Pequeña" class="img-fluid mt-2">
+                <img src="img/epglogo.png" alt="Imagen Pequeña" class="img-fluid mt-2">
                 <!-- Imagen pequeña (logo u otra imagen) -->
 
             </div>

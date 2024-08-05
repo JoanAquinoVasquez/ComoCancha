@@ -71,4 +71,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function canchas()
+    {
+        return $this->hasMany(Cancha::class, 'user_id');
+    }
 }

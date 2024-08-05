@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Como</b> Cancha',
+    'logo' => 'Como<b>Cancha</b>',
     'logo_img' => 'vendor/adminlte/dist/img/Logoepg-unprg.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -192,7 +192,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-success elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -292,12 +292,12 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
+            'type' => 'navbar-search',
+            'text' => 'search',
             'topnav_right' => true,
         ],
         [
-            'type'         => 'fullscreen-widget',
+            'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
@@ -308,64 +308,105 @@ return [
         ],
         [
             'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'url' => 'admin/blog',
+            'can' => 'manage-blog',
         ],
         [
-            'text'        => 'Dashboard',
-            'url'         => '/dashboard',
-            'icon'        => 'far fa-fw fa-file',
+            'text' => 'Dashboard',
+            'url' => '/dashboard',
+            'icon' => 'far fa-fw fa-file',
             //'label'       => 1,
             //'label_color' => 'success',
         ],
         [
-            'text' => 'Canchas',
-            'url'  => '#',
-            'icon' => 'fa fa-list',
+            'text' => 'Mis Canchas',
+            'url' => '/miscanchas',
+            'icon' => 'fas fa-futbol',
         ],
         [
-            'text' => 'Proveedores',
-            'url'  => '#',
-            'icon' => 'fa fa-list',
+            'text' => 'Horarios',
+            'url' => '/horarios',
+            'icon' => 'fas fa-clock',
         ],
-        ['header' => 'account_settings'],
+        [
+            'text' => 'Deporte',
+            'url' => '/deportes',
+            'icon' => 'fa fa-flag',
+        ],
+        [
+            'text' => 'Mis Sedes',
+            'url' => '/sedes',
+            'icon' => 'fas fa-map-marker-alt',
+        ],
+        [
+            'text' => 'Superficie',
+            'url' => '/superficies',
+            'icon' => 'fas fa-ruler-vertical',
+        ],
+        [
+            'text' => 'Mis Servicios',
+            'url' => '/servicios',
+            'icon' => 'fas fa-briefcase',
+        ],
+        [
+            'text' => 'Usuarios',
+            'url' => '/usuarios',
+            'icon' => 'fas fa-users',
+        ],
+        [
+            'text' => 'Administración',
+            'url' => '#',
+            'icon' => 'fas fa-tachometer-alt',
+        ],
+        ['header' => 'GESTIÓN DE RESERVAS'],
+        [
+            'text' => 'Clientes',
+            'url' => '/clientes',
+            'icon' => 'fas fa-user-shield',
+        ],
+        [
+            'text' => 'Reservas',
+            'url' => '/reservas',
+            'icon' => 'fas fa-ticket-alt',
+        ],
+        ['header' => 'GESTIÓN DE USUARIO'],
         [
             'text' => 'profile',
-            'url'  => 'user/profile',
+            'url' => 'user/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'Crear Usuario',
-            'url'  => 'register',
+            'url' => 'register',
             'icon' => 'fa fa-user-plus',
         ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+        /*[
+            'text' => 'multilevel',
+            'icon' => 'fas fa-fw fa-share',
             'submenu' => [
                 [
                     'text' => 'level_one',
-                    'url'  => '#',
+                    'url' => '#',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
+                    'text' => 'level_one',
+                    'url' => '#',
                     'submenu' => [
                         [
                             'text' => 'level_two',
-                            'url'  => '#',
+                            'url' => '#',
                         ],
                         [
-                            'text'    => 'level_two',
-                            'url'     => '#',
+                            'text' => 'level_two',
+                            'url' => '#',
                             'submenu' => [
                                 [
                                     'text' => 'level_three',
-                                    'url'  => '#',
+                                    'url' => '#',
                                 ],
                                 [
                                     'text' => 'level_three',
-                                    'url'  => '#',
+                                    'url' => '#',
                                 ],
                             ],
                         ],
@@ -373,26 +414,26 @@ return [
                 ],
                 [
                     'text' => 'level_one',
-                    'url'  => '#',
+                    'url' => '#',
                 ],
             ],
         ],
         ['header' => 'labels'],
         [
-            'text'       => 'important',
+            'text' => 'important',
             'icon_color' => 'red',
-            'url'        => '#',
+            'url' => '#',
         ],
         [
-            'text'       => 'warning',
+            'text' => 'warning',
             'icon_color' => 'yellow',
-            'url'        => '#',
+            'url' => '#',
         ],
         [
-            'text'       => 'information',
+            'text' => 'information',
             'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+            'url' => '#',
+        ],*/
     ],
 
     /*

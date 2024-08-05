@@ -17,11 +17,12 @@ class CanchaController extends Controller
     {
         $validatedData = $request->validate([
             'tipo' => 'required|string|max:255',
-            'ubicacion' => 'required|string|max:255',
-            'precioporhora' => 'required|numeric',
+            'direccion' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'user_id' => 'required|exists:user,id',
             'deporte_id' => 'required|exists:deporte,id',
+            'sede_id' => 'required|exists:sede,id',
+            'estado' => 'required|integer',
         ]);
 
         $cancha = Cancha::create($validatedData);
@@ -36,12 +37,13 @@ class CanchaController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'tipo' => 'sometimes|required|string|max:255',
-            'ubicacion' => 'sometimes|required|string|max:255',
-            'precioporhora' => 'sometimes|required|numeric',
-            'descripcion' => 'sometimes|required|string',
-            'user_id' => 'sometimes|required|exists:user,id',
-            'deporte_id' => 'sometimes|required|exists:deporte,id',
+            'tipo' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'user_id' => 'required|exists:user,id',
+            'deporte_id' => 'required|exists:deporte,id',
+            'sede_id' => 'required|exists:sede,id',
+            'estado' => 'required|integer',
         ]);
 
         $cancha = Cancha::findOrFail($id);

@@ -21,6 +21,7 @@ class SedeController extends Controller
             'email' => 'nullable|string|email|max:255',
             'direccion' => 'required|string',
             'distrito_id' => 'required|exists:distrito,id',
+            'user_id' => 'required|exists:user,id',
         ]);
 
         $sede = Sede::create($validatedData);
@@ -40,6 +41,7 @@ class SedeController extends Controller
             'email' => 'sometimes|nullable|string|email|max:255',
             'direccion' => 'sometimes|required|string',
             'distrito_id' => 'sometimes|required|exists:distrito,id',
+            'user_id' => 'sometimes|required|exists:user,id',
         ]);
 
         $sede = Sede::findOrFail($id);

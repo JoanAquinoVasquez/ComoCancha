@@ -12,21 +12,49 @@ class CanchaSeeder extends Seeder
         DB::table('cancha')->insert([
             [
                 'tipo' => 'Fútbol',
-                'ubicacion' => 'Av. Grau 123',
-                'precioporhora' => 50.00,
-                'descripcion' => 'Cancha de fútbol profesional',
+                'direccion' => 'Av. Grau 123',
+                'descripcion' => 'Cancha de fútbol profesional con césped artificial',
+                'deporte_id' => 1,
+                'sede_id' => 1,
                 'user_id' => 1,
-                'deporte_id' => 1
+                'estado' => 0
             ],
             [
-                'tipo' => 'Basketball',
-                'ubicacion' => 'Av. Los Pinos 456',
-                'precioporhora' => 30.00,
-                'descripcion' => 'Cancha de basketball con aros de última generación',
-                'user_id' => 3,
-                'deporte_id' => 2
+                'tipo' => 'Futbol',
+                'direccion' => 'Av. Los Pinos 456',
+                'descripcion' => 'Cancha de fútbol con césped natural',
+                'deporte_id' => 1,
+                'sede_id' => 2,
+                'user_id' => 1,
+                'estado' => 0
             ],
-            // Agrega más canchas y relaciona con el ID del cliente y deporte correspondiente
+            [
+                'tipo' => 'Futbol',
+                'direccion' => 'Av. Las Flores 789',
+                'descripcion' => 'Cancha de fútbol con césped artificial',
+                'deporte_id' => 1,
+                'sede_id' => 2,
+                'user_id' => 2,
+                'estado' => 0
+            ],
+            [
+                'tipo' => 'Baloncesto',
+                'direccion' => 'Av. Los Pinos 456',
+                'descripcion' => 'Cancha de baloncesto techada',
+                'deporte_id' => 2,
+                'sede_id' => 2,
+                'user_id' => 2,
+                'estado' => 0
+            ],
+            [
+                'tipo' => 'Voleibol',
+                'direccion' => 'Av. Las Flores 789',
+                'descripcion' => 'Cancha de voleibol con arena',
+                'deporte_id' => 3,
+                'sede_id' => 2,
+                'user_id' => 1,
+                'estado' => 0
+            ]
         ]);
     }
 }

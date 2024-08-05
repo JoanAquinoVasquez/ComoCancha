@@ -20,6 +20,7 @@ class HorarioController extends Controller
             'hora_inicio' => 'required|time',
             'hora_fin' => 'required|time',
             'cancha_id' => 'required|exists:cancha,id',
+            'user_id' => 'required|exists:user,id',
         ]);
 
         $horario = Horario::create($validatedData);
@@ -38,6 +39,7 @@ class HorarioController extends Controller
             'hora_inicio' => 'sometimes|required|time',
             'hora_fin' => 'sometimes|required|time',
             'cancha_id' => 'sometimes|required|exists:cancha,id',
+            'user_id' => 'sometimes|required|exists:user,id',
         ]);
 
         $horario = Horario::findOrFail($id);

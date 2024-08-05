@@ -9,16 +9,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-           // DepartamentoSeeder::class,
+            UserSeeder::class,
+            DepartamentoSeeder::class,
+            ProvinciaSeeder::class,
+            DistritoSeeder::class,
             DeporteSeeder::class,
-           // ProvinciaSeeder::class,
-            //DistritoSeeder::class,
-            CanchaSeeder::class,
             SedeSeeder::class,
+            CanchaSeeder::class,
             ReservaSeeder::class,
             PagoSeeder::class,
+            GaleriaSeeder::class,
             HorarioSeeder::class,
-            
+            PrecioSeeder::class,
         ]);
     }
 }

@@ -15,14 +15,14 @@ class PagoSeeder extends Seeder
                 'fecha' => '2024-08-10',
                 'metodo' => 'Tarjeta de Crédito',
                 'estado' => true,
-                'reserva_id' => 3
+                'reserva_id' => 1
             ],
             [
                 'monto' => 30.00,
                 'fecha' => '2024-08-11',
                 'metodo' => 'Efectivo',
                 'estado' => true,
-                'reserva_id' => 4
+                'reserva_id' => 3
             ],
             // Agrega más pagos y relaciona con el ID de la reserva correspondiente
         ]);

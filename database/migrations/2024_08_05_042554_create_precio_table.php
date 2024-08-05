@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        schema::create('horario', function (Blueprint $table) {
+        Schema::create('precio', function (Blueprint $table) {
             $table->id();
-            $table->string('dia');
-            $table->time('hora_inicio');
-            $table->time('hora_fin');
+            $table->decimal('amount', 8, 2);
             $table->foreignId('cancha_id')->constrained('cancha');
-            $table->foreignId('user_id')->constrained('user');
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        schema::dropIfExists('horario');
+        Schema::dropIfExists('precio');
     }
 };

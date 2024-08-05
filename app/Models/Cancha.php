@@ -11,9 +11,14 @@ class Cancha extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['tipo', 'ubicacion', 'precioporhora', 'descripcion', 'user_id', 'deporte_id'];
+    protected $fillable = ['tipo', 'direccion', 'precio_id', 'descripcion', 'user_id', 'deporte_id', 'sede_id', 'estado'];
 
     protected $table = 'cancha';
+
+    public function precio()
+    {
+        return $this->hasOne(Precio::class);
+    }
 
     public function user()
     {
@@ -23,6 +28,11 @@ class Cancha extends Model
     public function deporte()
     {
         return $this->belongsTo(Deporte::class);
+    }
+
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class);
     }
 
     public function reservas()

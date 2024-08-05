@@ -51,3 +51,6 @@ Route::apiResource('pagos', PagoController::class);
 
 // Rutas para Horario
 Route::apiResource('horarios', HorarioController::class);
+
+// Rutas para Galeria
+Route::apiResource('galerias', GaleriaController::class);
