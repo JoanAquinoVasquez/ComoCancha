@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -14,17 +13,32 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            [
-                'name' => 'walther',
-                'email' => 'walther@example.com',
-                'password' => bcrypt('walther'),
-            ],
-            [
-                'name' => 'joan',
-                'email' => 'joan@example.com',
-                'password' => bcrypt('joan'),
-            ]
-        ]);
+        // Crear roles
+        $clienteRole = Role::create(['name' => 'cliente']);
+        $duenoRole = Role::create(['name' => 'dueño']);
+        $adminRole = Role::create(['name' => 'administrador']);
+
+        $dueno = User::create([
+            'name' => 'walther',
+            'email' => 'walther@example.com',
+            'password' => bcrypt('walther'),
+        ]
+        );
+        $admin = User::create([
+            'name' => 'joan',
+            'email' => 'joan@example.com',
+            'password' => bcrypt('joan'),
+        ]
+        );
+        $cliente = User::create([
+            'name' => 'calle',
+            'email' => 'calle@example.com',
+            'password' => bcrypt('calle'),
+        ]
+        );
+
+        $cliente->assignRole($clienteRole);
+        $dueno->assignRole($duenoRole);
+        $admin->assignRole($adminRole);
     }
 }
