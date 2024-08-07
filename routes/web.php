@@ -20,9 +20,7 @@ use App\Actions\Fortify\CreateNewUser;
 //     return view('auth.register');
 // })->middleware('auth')->name('register');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'showInicio'])->name('Cliente.inicio');
 
 // Rutas protegidas por autenticación
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -31,8 +29,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/miscanchas', [HomeController::class, 'showMisCanchas'])->name('miscanchas');
     Route::post('/miscanchas', [CanchaController::class, 'store'])->name('canchas.store');
-    Route::post('/miscanchas/{id}', [CanchaController::class, 'update'])->name('canchas.update');
-    Route::delete('/miscanchas/{id}', [CanchaController::class, 'destroy']);
+    Route::get('/miscanchas/{id}', [CanchaController::class, 'show']);
+    Route::put('/miscanchas/{id}', [CanchaController::class, 'update'])->name('canchas.update');
+    Route::delete('/miscanchas/{id}', [CanchaController::class, 'destroy'])->name('miscanchas.destroy');
 
     Route::get('/horarios', [HomeController::class, 'showHorarios'])->name('horarios');
     Route::get('/deportes', [HomeController::class, 'showDeportes'])->name('deportes');
@@ -43,8 +42,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/clientes', [HomeController::class, 'showClientes'])->name('clientes');
     Route::get('/reservas', [HomeController::class, 'showReservas'])->name('reservas');
 
-    Route::get('/inicio', [HomeController::class, 'showInicio'])->name('Cliente.inicio');
     Route::get('/nosotros', [HomeController::class, 'showNosotros'])->name('Cliente.nosotros');
-
-
 });

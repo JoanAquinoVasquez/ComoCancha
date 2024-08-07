@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('precio', function (Blueprint $table) {
             $table->id();
+            $table->string('turno');
             $table->decimal('amount', 8, 2);
             $table->foreignId('cancha_id')->constrained('cancha');
         });

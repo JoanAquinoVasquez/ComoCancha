@@ -48,11 +48,11 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Idhorario</th>
+                                <th>Id</th>
                                 <th>Día</th>
                                 <th>Inicio</th>
                                 <th>Final</th>
-                                <th>IdCancha</th>
+                                <th>Cancha</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -63,7 +63,7 @@
                                 <td>{{ $horario->dia }} </td>
                                 <td>{{ $horario->hora_inicio }} </td>
                                 <td>{{ $horario->hora_fin }} </td>
-                                <td>{{ $horario->cancha_id }} </td>
+                                <td>{{ $horario->cancha->tipo }} </td>
                                 <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
 
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"

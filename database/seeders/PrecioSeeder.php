@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,18 +13,25 @@ class PrecioSeeder extends Seeder
     public function run(): void
     {
         DB::table('precio')->insert([
-            [
-                'amount' => 100.00,
-                'cancha_id' => 1, // Asegúrate de que exista una cancha con ID 1
-            ],
-            [
-                'amount' => 150.00,
-                'cancha_id' => 2, // Asegúrate de que exista una cancha con ID 2
-            ],
-            [
-                'amount' => 200.00,
-                'cancha_id' => 3, // Asegúrate de que exista una cancha con ID 3
-            ],
+            // Cancha 1
+            ['amount' => 60.00, 'cancha_id' => 1, 'turno' => 'mañana'],
+            ['amount' => 80.00, 'cancha_id' => 1, 'turno' => 'noche'],
+
+            // Cancha 2
+            ['amount' => 100.00, 'cancha_id' => 2, 'turno' => 'mañana'],
+            ['amount' => 120.00, 'cancha_id' => 2, 'turno' => 'noche'],
+
+            // Cancha 3
+            ['amount' => 50.00, 'cancha_id' => 3, 'turno' => 'mañana'],
+            ['amount' => 70.00, 'cancha_id' => 3, 'turno' => 'noche'],
+
+            // Cancha 4
+            ['amount' => 100.00, 'cancha_id' => 4, 'turno' => 'mañana'],
+            ['amount' => 130.00, 'cancha_id' => 4, 'turno' => 'noche'],
+
+            // Cancha 5
+            ['amount' => 60.00, 'cancha_id' => 5, 'turno' => 'mañana'],
+            ['amount' => 90.00, 'cancha_id' => 5, 'turno' => 'noche'],
         ]);
     }
 }
