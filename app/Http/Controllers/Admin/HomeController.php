@@ -34,7 +34,7 @@ class HomeController extends Controller
         // Verificar si el usuario está autenticado
         if (Auth::check()) {
             $user = Auth::user();
-            
+
             $totalCanchas = $user->canchas()->count();
             $numSedes = Sede::count();
             $numHorarios = Horario::count();
@@ -52,9 +52,15 @@ class HomeController extends Controller
     }
     public function showMisCanchas()
     {
-        $canchas = Cancha::all();
-
-        return view('admin.miscanchas', ['canchas' => $canchas]);
+        if (Auth::check()) {
+            $user = Auth::user();
+            $canchas = $user->canchas;
+            $deportes = Deporte::all();
+            $sedes = Sede::where('user_id', $user->id)->get();
+            return view('admin.miscanchas', ['canchas' => $canchas, 'deportes' => $deportes, 'sedes' => $sedes]);
+        } else {
+            return redirect()->route('login');
+        }
     }
     public function showHorarios()
     {

@@ -15,9 +15,9 @@
                 {{ session('success') }}
             </div>
         @endif
-        
+
     </div>
-    
+
     <div class="row">
         <div class="col-md-6">
             <div class="p-3">
@@ -48,13 +48,12 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>IdCancha</th>
+                                <th>Id</th>
                                 <th>Tipo</th>
                                 <th>Direccion</th>
                                 <th>Precio/h</th>
                                 <th>Descripcion</th>
-                                <th>IdUsuario</th>
-                                <th>IdDeporte</th>
+                                <th>Sede</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -63,15 +62,13 @@
                             <tr>
                                 <td>{{ $cancha->id }}</td>
                                 <td>{{ $cancha->tipo }}</td>
-                                <td>{{ $cancha->ubicacion }}</td>
-                                <td>{{ $cancha->precioporhora }}</td>
+                                <td>{{ $cancha->direccion }}</td>
+                                <td>{{ $cancha->precio ? $cancha->precio->amount : 'N/A'  }}</td>
                                 <td>{{ $cancha->descripcion }}</td>
-                                <td>{{ $cancha->user->id }}</td>
-                                <td>{{ $cancha->deporte->id }}</td>
+                                <td>{{ $cancha->sede->nombre }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal" data-bs-id="{{ $cancha->id }}">Eliminar</button>
+                                    <a href="#" class="btn btn-warning btn-sm me-2" data-id="{{ $cancha->id }}" data-toggle="modal" data-target="#editModal">Editar</a>
+                                    <button type="button" class="btn btn-danger btn-sm" data-id="{{ $cancha->id }}" data-toggle="modal" data-target="#deleteModal">Eliminar</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -80,12 +77,178 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Fin Tabla-->
     </div>
-        
+
 
 @stop
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="addModalLabel"><i class="fas fa-plus"></i> Nueva Cancha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" method="POST" action="{{ route('canchas.store') }}">
+                    @csrf
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-12">
+                            <label for="usuario">Usuario</label>
+                            <input type="text" class="form-control" id="usuario" name="usuario" value="{{ auth()->user()->name }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-4">
+                            <label for="tipo">Tipo</label>
+                            <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Tipo">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-4">
+                            <label for="deporte_id">Deporte</label>
+                            <select id="deporte_id" name="deporte_id" class="form-control">
+                                <option selected>Seleccione...</option>
+                                @foreach($deportes as $deporte)
+                                    <option value="{{ $deporte->id }}">{{ $deporte->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="sede_id">Sede</label>
+                            <select id="sede_id" name="sede_id" class="form-control">
+                                <option selected>Seleccione...</option>
+                                @foreach($sedes as $sede)
+                                    <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="estado">Estado</label>
+                            <select id="estado" name="estado" class="form-control">
+                                <option value="0">Disponible</option>
+                                <option value="1">Ocupada</option>
+                                <option value="2">En mantenimiento</option>
+                                <option value="3">No disponible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary" id="saveButton">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title" id="editModalLabel"><i class="fas fa-edit"></i> Editar Cancha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" method="POST" action="{{ route('canchas.update') }}">
+                    @csrf
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-12">
+                            <label for="tipo">Tipo</label>
+                            <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Tipo">
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-12">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección">
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-12">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-6">
+                            <label for="deporte_id">Deporte</label>
+                            <select id="deporte_id" name="deporte_id" class="form-control">
+                                @foreach($deportes as $deporte)
+                                    <option value="{{ $deporte->id }}">{{ $deporte->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="sede_id">Sede</label>
+                            <select id="sede_id" name="sede_id" class="form-control">
+                                @foreach($sedes as $sede)
+                                    <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-12">
+                            <label for="estado">Estado</label>
+                            <select id="estado" name="estado" class="form-control">
+                                <option value="0">Disponible</option>
+                                <option value="1">Ocupada</option>
+                                <option value="2">En mantenimiento</option>
+                                <option value="3">No disponible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-warning" id="updateButton">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel"><i class="fas fa-trash"></i> Eliminar Cancha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar esta cancha?</p>
+                <form id="deleteForm" method="POST" action="">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-danger" id="deleteButton">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section('css')
@@ -99,75 +262,30 @@
 @stop
 
 @section('js')
-<!-- Modal -->
-<!-- Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="addModalLabel"><i class="fas fa-plus"></i> Nueva Cancha</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="addForm">
-                    <div class="form-row mb-3">
-                        <div class="form-group col-md-4">
-                            <label for="name">Nombre</label>
-                            <input type="text" class="form-control" id="name" placeholder="Nombre">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="price">Precio por hora</label>
-                            <input type="number" class="form-control" id="price" placeholder="Precio por hora">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="code">Código</label>
-                            <input type="text" class="form-control" id="code" placeholder="Código">
-                        </div>
-                    </div>
-                    <div class="form-row mb-3">
-                        <div class="form-group col-md-4">
-                            <label for="location">Sede</label>
-                            <select id="location" class="form-control">
-                                <option selected>Seleccione...</option>
-                                <option value="1">Sede 1</option>
-                                <option value="2">Sede 2</option>
-                                <option value="3">Sede 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="sport">Deporte</label>
-                            <select id="sport" class="form-control">
-                                <option selected>Seleccione...</option>
-                                <option value="1">Deporte 1</option>
-                                <option value="2">Deporte 2</option>
-                                <option value="3">Deporte 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="surface">Superficie</label>
-                            <select id="surface" class="form-control">
-                                <option selected>Seleccione...</option>
-                                <option value="1">Superficie 1</option>
-                                <option value="2">Superficie 2</option>
-                                <option value="3">Superficie 3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Descripción</label>
-                        <textarea class="form-control" id="description" rows="3" placeholder="Descripción"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="saveButton">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Existing scripts... -->
+<script>
+    // JavaScript for handling the Edit button click event
+    $(document).on('click', '.btn-warning', function() {
+        var canchaId = $(this).data('id');
+        $.get('/miscanchas/' + canchaId, function(data) {
+            $('#editModal #tipo').val(data.tipo);
+            $('#editModal #direccion').val(data.direccion);
+            $('#editModal #descripcion').val(data.descripcion);
+            $('#editModal #deporte_id').val(data.deporte_id);
+            $('#editModal #sede_id').val(data.sede_id);
+            $('#editModal #estado').val(data.estado);
+            $('#editForm').attr('action', 'miscanchas' + canchaId);
+            $('#editModal').modal('show');
+        });
+    });
+
+    // JavaScript for handling the Delete button click event
+    $(document).on('click', '.btn-danger', function() {
+        var canchaId = $(this).data('id');
+        $('#deleteForm').attr('action', '/miscanchas/' + canchaId);
+        $('#deleteModal').modal('show');
+    });
+</script>
 
 <!-- jQuery (necesario para DataTables) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

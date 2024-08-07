@@ -17,7 +17,7 @@ class Cancha extends Model
 
     public function precio()
     {
-        return $this->hasOne(Precio::class);
+        return $this->hasOne(Precio::class, 'cancha_id');
     }
 
     public function user()

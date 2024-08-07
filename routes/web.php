@@ -1,16 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PlanEstrategicoController;
-use App\Http\Controllers\ObjetivoEstrategicoController;
-use App\Http\Controllers\AnalisisInternoController;
-use App\Http\Controllers\AnalisisExternoController;
-use App\Http\Controllers\EstrategiaController;
-use App\Http\Controllers\IndicadorController;
-use App\Http\Controllers\PresupuestoController;
-use App\Http\Controllers\EvaluacionController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\CanchaController;
 use App\Actions\Fortify\CreateNewUser;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +28,12 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/admin', [HomeController::class, 'index'])->name('admin.home');
     Route::get('/dashboard', [HomeController::class, 'showDashboard'])->name('dashboard');
+
     Route::get('/miscanchas', [HomeController::class, 'showMisCanchas'])->name('miscanchas');
+    Route::post('/miscanchas', [CanchaController::class, 'store'])->name('canchas.store');
+    Route::post('/miscanchas/{id}', [CanchaController::class, 'update'])->name('canchas.update');
+    Route::delete('/miscanchas/{id}', [CanchaController::class, 'destroy']);
+
     Route::get('/horarios', [HomeController::class, 'showHorarios'])->name('horarios');
     Route::get('/deportes', [HomeController::class, 'showDeportes'])->name('deportes');
     Route::get('/sedes', [HomeController::class, 'showSedes'])->name('sedes');
@@ -43,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/usuarios', [HomeController::class, 'showUsuarios'])->name('usuarios');
     Route::get('/clientes', [HomeController::class, 'showClientes'])->name('clientes');
     Route::get('/reservas', [HomeController::class, 'showReservas'])->name('reservas');
-    
+
     Route::get('/inicio', [HomeController::class, 'showInicio'])->name('Cliente.inicio');
     Route::get('/nosotros', [HomeController::class, 'showNosotros'])->name('Cliente.nosotros');
 
