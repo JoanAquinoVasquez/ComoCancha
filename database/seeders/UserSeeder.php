@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,24 +15,24 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Crear roles
-        $clienteRole = Role::create(['name' => 'cliente']);
-        $duenoRole = Role::create(['name' => 'dueño']);
-        $adminRole = Role::create(['name' => 'administrador']);
+        $clienteRole = Role::create(['name' => 'Cliente']);
+        $duenoRole = Role::create(['name' => 'Dueño']);
+        $adminRole = Role::create(['name' => 'Administrador']);
 
         $dueno = User::create([
-            'name' => 'walther',
+            'name' => 'Walther Galan',
             'email' => 'walther@example.com',
             'password' => bcrypt('walther'),
         ]
         );
         $admin = User::create([
-            'name' => 'joan',
+            'name' => 'Joan Aquino',
             'email' => 'joan@example.com',
             'password' => bcrypt('joan'),
         ]
         );
         $cliente = User::create([
-            'name' => 'calle',
+            'name' => 'Efrain Calle',
             'email' => 'calle@example.com',
             'password' => bcrypt('calle'),
         ]

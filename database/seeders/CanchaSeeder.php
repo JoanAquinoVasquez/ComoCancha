@@ -11,7 +11,7 @@ class CanchaSeeder extends Seeder
     {
         DB::table('cancha')->insert([
             [
-                'tipo' => 'Fútbol',
+                'tipo' => 'ShowGol',
                 'direccion' => 'Av. Grau 123',
                 'descripcion' => 'Cancha de fútbol profesional con césped artificial',
                 'deporte_id' => 1,
@@ -20,7 +20,7 @@ class CanchaSeeder extends Seeder
                 'estado' => 0
             ],
             [
-                'tipo' => 'Futbol',
+                'tipo' => 'MachoGol',
                 'direccion' => 'Av. Los Pinos 456',
                 'descripcion' => 'Cancha de fútbol con césped natural',
                 'deporte_id' => 1,
@@ -29,25 +29,25 @@ class CanchaSeeder extends Seeder
                 'estado' => 0
             ],
             [
-                'tipo' => 'Futbol',
+                'tipo' => 'Camp Nou',
                 'direccion' => 'Av. Las Flores 789',
                 'descripcion' => 'Cancha de fútbol con césped artificial',
                 'deporte_id' => 1,
-                'sede_id' => 2,
+                'sede_id' => 3,
                 'user_id' => 2,
                 'estado' => 0
             ],
             [
-                'tipo' => 'Baloncesto',
+                'tipo' => 'Boston Celtics',
                 'direccion' => 'Av. Los Pinos 456',
                 'descripcion' => 'Cancha de baloncesto techada',
                 'deporte_id' => 2,
-                'sede_id' => 2,
+                'sede_id' => 4,
                 'user_id' => 2,
                 'estado' => 0
             ],
             [
-                'tipo' => 'Voleibol',
+                'tipo' => 'Ball Arena',
                 'direccion' => 'Av. Las Flores 789',
                 'descripcion' => 'Cancha de voleibol con arena',
                 'deporte_id' => 3,

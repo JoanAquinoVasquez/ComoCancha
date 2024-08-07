@@ -53,7 +53,7 @@
                                 <th>Telefono</th>
                                 <th>Correo</th>
                                 <th>Direccion</th>
-                                <th>IdDistrito</th>
+                                <th>Distrito</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -65,7 +65,7 @@
                                 <td>{{ $sede->telefono }}</td>
                                 <td>{{ $sede->email }}</td>
                                 <td>{{ $sede->direccion }}</td>
-                                <td>{{ $sede->distrito_id }}</td>
+                                <td>{{ $sede->distrito->nombre }}</td>
                                 <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
 
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('descripcion'); // Características de la cancha, como si tiene césped artificial, si es techada, etc.
             $table->foreignId('deporte_id')->constrained('deporte');
             $table->foreignId('sede_id')->constrained('sede');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('user');
             $table->integer('estado')->default(0); // 0: Disponible, 1: Ocupada, 2: En mantenimiento, 3: No disponible
         });
     }

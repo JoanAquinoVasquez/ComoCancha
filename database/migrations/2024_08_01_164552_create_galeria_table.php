@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('descripcion')->nullable();
             $table->string('image_path');
             $table->foreignId('cancha_id')->constrained('cancha')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
         });
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->time('hora_inicio');
             $table->time('hora_fin');
             $table->integer('estado');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('user');
             $table->foreignId('cancha_id')->constrained('cancha');
             $table->timestamps();
         });

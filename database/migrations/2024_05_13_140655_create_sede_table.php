@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('direccion');
             $table->foreignId('distrito_id')->constrained('distrito');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('user');
         });
     }
 

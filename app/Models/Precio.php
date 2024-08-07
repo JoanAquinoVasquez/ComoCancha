@@ -9,7 +9,7 @@ class Precio extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['amount', 'cancha_id'];
+    protected $fillable = ['amount', 'cancha_id', 'turno'];
     protected $table = 'precio';
 
     public function cancha()

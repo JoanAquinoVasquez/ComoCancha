@@ -2,27 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
-use App\Exports\PostulantesValidadosExport;
 use App\Http\Controllers\Controller;
-use App\Models\Departamento;
-use App\Models\Distrito;
-use App\Models\Provincia;
 use App\Models\Cancha;
-use App\Models\Sede;
-use App\Models\Horario;
 use App\Models\Deporte;
+use App\Models\Horario;
 use App\Models\Reserva;
+use App\Models\Sede;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     //
     public function index()
     {
-      //  $canchas = Canchas::all();
+        //  $canchas = Canchas::all();
         // Devolver la vista 'dashboard' con los datos necesarios
 
         return view('admin.index');
@@ -34,16 +27,23 @@ class HomeController extends Controller
         // Verificar si el usuario está autenticado
         if (Auth::check()) {
             $user = Auth::user();
-            
-            $totalCanchas = $user->canchas()->count();
-            $numSedes = Sede::count();
-            $numHorarios = Horario::count();
 
-            return view('admin.index', [
-                'totalCanchas' => $totalCanchas,
-                'numSedes' => $numSedes,
-                'numHorarios' => $numHorarios
-            ]);
+            // Verificar si el usuario tiene el rol de cliente
+            if ($user->hasRole('Cliente')) {
+                return redirect()->route('Cliente.inicio');
+            }
+
+            if ($user->hasRole(['Administrador', 'Dueño'])) {
+                $totalCanchas = $user->canchas()->count();
+                $numSedes = Sede::count();
+                $numHorarios = Horario::count();
+
+                return view('admin.index', [
+                    'totalCanchas' => $totalCanchas,
+                    'numSedes' => $numSedes,
+                    'numHorarios' => $numHorarios,
+                ]);
+            }
         } else {
             // Redirigir al usuario a la página de inicio de sesión si no está autenticado
             return redirect()->route('login');
@@ -52,9 +52,15 @@ class HomeController extends Controller
     }
     public function showMisCanchas()
     {
-        $canchas = Cancha::all();
-
-        return view('admin.miscanchas', ['canchas' => $canchas]);
+        if (Auth::check()) {
+            $user = Auth::user();
+            $canchas = $user->canchas()->with('precio')->get();
+            $deportes = Deporte::all();
+            $sedes = Sede::where('user_id', $user->id)->get();
+            return view('admin.miscanchas', ['canchas' => $canchas, 'deportes' => $deportes, 'sedes' => $sedes]);
+        } else {
+            return redirect()->route('login');
+        }
     }
     public function showHorarios()
     {

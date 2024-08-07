@@ -22,6 +22,7 @@ class PrecioController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'turno' => 'required',
             'amount' => 'required|numeric|min:0',
             'cancha_id' => 'required|exists:canchas,id',
         ]);
@@ -39,6 +40,7 @@ class PrecioController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
+            'turno' => 'required',
             'amount' => 'required|numeric|min:0',
             'cancha_id' => 'required|exists:canchas,id',
         ]);
