@@ -26,7 +26,9 @@
         </div>
         <div class="col-md-6">
             <div class="p-3 text-right">
+            @role('Administrador')
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> Agregar</button>
+            @endrole
             </div>
         </div>
     </div>

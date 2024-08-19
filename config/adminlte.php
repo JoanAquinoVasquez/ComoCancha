@@ -338,16 +338,16 @@ return [
             'url' => '/sedes',
             'icon' => 'fas fa-map-marker-alt',
         ],
-        [
-            'text' => 'Superficie',
-            'url' => '/superficies',
-            'icon' => 'fas fa-ruler-vertical',
-        ],
-        [
-            'text' => 'Mis Servicios',
-            'url' => '/servicios',
-            'icon' => 'fas fa-briefcase',
-        ],
+      //  [
+           // 'text' => 'Superficie',
+           // 'url' => '/superficies',
+           // 'icon' => 'fas fa-ruler-vertical',
+        //],
+      //  [
+        //    'text' => 'Mis Servicios',
+         //   'url' => '/servicios',
+          //  'icon' => 'fas fa-briefcase',
+        // ],
         [
             'text' => 'Usuarios',
             'url' => '/usuarios',

@@ -21,11 +21,23 @@ class SedeController extends Controller
             'email' => 'nullable|string|email|max:255',
             'direccion' => 'required|string',
             'distrito_id' => 'required|exists:distrito,id',
-            'user_id' => 'required|exists:user,id',
         ]);
 
-        $sede = Sede::create($validatedData);
-        return response()->json($sede, 201);
+        if (!Auth::check()) {
+            return redirect()->route('login')->withErrors('User not authenticated.');
+        }
+        $user = Auth::user();
+
+        Sede::create([
+            'nombre' => $request->nombre,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
+            'direccion' => $request->direccion,
+            'distrito_id' => $request->distrito_id,
+            'user_id' => $user->id,
+        ]);
+
+        return redirect()->route('sedes')->with('success', 'Sede creada exitosamente.');
     }
     public function show($id)
     {
@@ -41,12 +53,11 @@ class SedeController extends Controller
             'email' => 'sometimes|nullable|string|email|max:255',
             'direccion' => 'sometimes|required|string',
             'distrito_id' => 'sometimes|required|exists:distrito,id',
-            'user_id' => 'sometimes|required|exists:user,id',
         ]);
 
         $sede = Sede::findOrFail($id);
         $sede->update($validatedData);
-        return response()->json($sede);
+        return redirect()->route('sedes')->with('success', 'Sede actualizada exitosamente.');
     }
 
     public function destroy($id)

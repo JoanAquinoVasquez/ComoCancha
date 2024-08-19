@@ -16,7 +16,7 @@ class SedeSeeder extends Seeder
                 'email' => 'slavictoria@example.com',
                 'direccion' => 'Av. Grau 123',
                 'distrito_id' => 1,
-                'user_id' => 1
+                'user_id' => 3
             ],
             [
                 'nombre' => 'Sede San Isidro',
@@ -24,7 +24,7 @@ class SedeSeeder extends Seeder
                 'email' => 'sani@example.com',
                 'direccion' => 'Av. Los Pinos 456',
                 'distrito_id' => 2,
-                'user_id' => 1
+                'user_id' => 3
             ],
             [
                 'nombre' => 'Sede Miraflores',
@@ -32,7 +32,7 @@ class SedeSeeder extends Seeder
                 'email' => 'smiraflores@example.com',
                 'direccion' => 'Av. Las Flores 789',
                 'distrito_id' => 3,
-                'user_id' => 2
+                'user_id' => 3
             ],
             [
                 'nombre' => 'Sede Surco',
@@ -40,7 +40,7 @@ class SedeSeeder extends Seeder
                 'email' => 'ssurco@example.com',
                 'direccion' => 'Av. Los Álamos 101',
                 'distrito_id' => 4,
-                'user_id' => 2
+                'user_id' => 4
             ],
             
             // Agrega más sedes y relaciona con el ID del distrito correspondiente

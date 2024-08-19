@@ -24,7 +24,6 @@ class GaleriaController extends Controller
             'descripcion' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'cancha_id' => 'required|exists:cancha,id',
-            'user_id' => 'required|exists:user,id',
         ]);
 
         $imagePath = $request->file('image')->store('galeria', 'public');
@@ -34,7 +33,6 @@ class GaleriaController extends Controller
             'descripcion' => $request->descripcion,
             'image_path' => $imagePath,
             'cancha_id' => $request->cancha_id,
-            'user_id' => $request->user_id,
         ]);
 
         return response()->json($galeria, 201);
@@ -52,7 +50,6 @@ class GaleriaController extends Controller
             'descripcion' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'cancha_id' => 'required|exists:cancha,id',
-            'user_id' => 'required|exists:user,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -67,7 +64,6 @@ class GaleriaController extends Controller
             'descripcion' => $request->descripcion,
             'image_path' => $imagePath,
             'cancha_id' => $request->cancha_id,
-            'user_id' => $request->user_id,
         ]);
 
         return response()->json($galeria);

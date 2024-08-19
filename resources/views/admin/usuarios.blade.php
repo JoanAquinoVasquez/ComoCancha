@@ -34,14 +34,6 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Lista de Usuarios</h6>
-                <div class="input-group ml-auto" style="width: 300px;">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -49,34 +41,25 @@
                         <thead>
                             <tr>
                                 <th>IdUsuario</th>
-                                <th>Nombre</th>
-                                <th>Rol</th>
+                                <th>Nombres</th>
                                 <th>Correo</th>
+                                <th>Rol</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($usuarios as $usuario)
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>                            
-                                <td>$320,800</td>
-                                <td>princesitovaliente@tubebe.com</td>
-                                <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-
+                                <td>{{ $usuario->id }}</td>
+                                <td>{{ $usuario->name }}</td>
+                                <td>{{ $usuario->email }}</td>
+                                <td>{{ $usuario->roles->first()->name }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#" data-bs-id="1">Eliminar</button></td>
                             </tr>
-                            <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>$320,800</td>
-                                <td>princesitovaliente@tubebe.com</td>
-                                <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#" data-bs-id="1">Eliminar</button></td>
-                            </tr>
-                            
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

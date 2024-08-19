@@ -26,7 +26,9 @@
         </div>
         <div class="col-md-6">
             <div class="p-3 text-right">
+                @role('Administrador')
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> Agregar</button>
+                @endrole
             </div>
         </div>
     </div>
@@ -34,14 +36,6 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Lista de Clientes</h6>
-                <div class="input-group ml-auto" style="width: 300px;">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -50,39 +44,22 @@
                             <tr>
                                 <th>IdCliente</th>
                                 <th>Nombres</th>
-                                <th>Edad</th>
-                                <th>DNI</th>
-                                <th>Teléfono</th>
-                                <th>Dirección</th>
+                                <th>Correo</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($clientes as $cliente)
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>                            
-                                <td>$320,800</td>
-                                <td>$320,800</td>
-                                <td>$320,800</td>
-                                <td>$320,800</td>
-                                <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-
+                                <td>{{ $cliente->id }}</td>
+                                <td>{{ $cliente->name }}</td>
+                                <td>{{ $cliente->email }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#" data-bs-id="1">Eliminar</button></td>
                             </tr>
-                            <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>$320,800</td>
-                                <td>$320,800</td>
-                                <td>$320,800</td>
-                                <td>$320,800</td>
-                                <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#" data-bs-id="1">Eliminar</button></td>
-                            </tr>
-                            
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

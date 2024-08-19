@@ -15,7 +15,6 @@ class Galeria extends Model
         'descripcion',
         'image_path',
         'cancha_id',
-        'user_id',
     ];
     protected $table = 'galeria';
 

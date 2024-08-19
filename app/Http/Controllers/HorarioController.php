@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Horario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HorarioController extends Controller
 {
@@ -17,14 +18,25 @@ class HorarioController extends Controller
     {
         $validatedData = $request->validate([
             'dia' => 'required|string|max:255',
-            'hora_inicio' => 'required|time',
-            'hora_fin' => 'required|time',
+            'hora_inicio' => ['required'],
+            'hora_fin' => ['required'],
             'cancha_id' => 'required|exists:cancha,id',
-            'user_id' => 'required|exists:user,id',
         ]);
 
-        $horario = Horario::create($validatedData);
-        return response()->json($horario, 201);
+        if (!Auth::check()) {
+            return redirect()->route('login')->withErrors('User not authenticated.');
+        }
+        $user = Auth::user();
+
+        Horario::create([
+            'dia' => $request->dia,
+            'hora_inicio' => $request->hora_inicio,
+            'hora_fin' => $request->hora_fin,
+            'cancha_id' => $request->cancha_id,
+            'user_id' => $user->id,
+        ]);
+
+        return redirect()->route('horarios')->with('success', 'Horario creado exitosamente.');
     }
     public function show($id)
     {
@@ -35,22 +47,21 @@ class HorarioController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'dia' => 'sometimes|required|string|max:255',
-            'hora_inicio' => 'sometimes|required|time',
-            'hora_fin' => 'sometimes|required|time',
-            'cancha_id' => 'sometimes|required|exists:cancha,id',
-            'user_id' => 'sometimes|required|exists:user,id',
+            'dia' => 'required|string|max:255',
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
+            'cancha_id' => 'required|exists:cancha,id',
         ]);
 
         $horario = Horario::findOrFail($id);
         $horario->update($validatedData);
-        return response()->json($horario);
+        return redirect()->route('horarios')->with('success', 'Horario actualizado exitosamente.');
     }
 
     public function destroy($id)
     {
         $horario = Horario::findOrFail($id);
         $horario->delete();
-        return response()->json(null, 204);
+        return redirect()->route('horarios')->with('success', 'Horario eliminado exitosamente.');
     }
 }

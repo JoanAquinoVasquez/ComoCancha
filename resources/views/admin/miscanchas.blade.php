@@ -26,8 +26,11 @@
             </div>
             <div class="col-md-6">
                 <div class="p-3 text-right">
+                @role('Administrador')
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"><i
-                            class="fas fa-plus"></i> Agregar</button>
+                            class="fas fa-plus"></i> Agregar
+                    </button>
+                @endrole
                 </div>
             </div>
         </div>
@@ -35,14 +38,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Lista de Canchitas</h6>
-                <div class="input-group ml-auto" style="width: 300px;">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
+                
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -56,13 +52,15 @@
                                 <th>Precio/h - Noche</th>
                                 <th>Descripcion</th>
                                 <th>Sede</th>
+                                @role('Administrador')
                                 <th>Opciones</th>
+                                @endrole
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($canchas as $index => $cancha)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td> <!-- Número secuencial -->
+                                    <td>{{ $cancha->id }}</td> <!-- Número secuencial -->
                                     <td>{{ $cancha->tipo }}</td>
                                     <td>{{ $cancha->direccion }}</td>
                                     <td>
@@ -79,6 +77,7 @@
                                     </td>
                                     <td>{{ $cancha->descripcion }}</td>
                                     <td>{{ $cancha->sede->nombre }}</td>
+                                    @role('Administrador')
                                     <td>
                                         <a href="#" class="btn btn-warning btn-sm me-2" data-id="{{ $cancha->id }}"
                                             data-toggle="modal" data-target="#editModal">Editar</a>
@@ -87,6 +86,7 @@
                                             Eliminar
                                         </button>
                                     </td>
+                                    @endrole
                                 </tr>
                             @endforeach
                         </tbody>
@@ -98,15 +98,12 @@
         <!--Fin Tabla-->
     </div>
 
-
-@stop
-
-<!-- Add Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="addModalLabel"><i class="fas fa-plus"></i> Nueva Cancha</h5>
+                <h5 class="modal-title" id="editModalLabel"><i class="fas fa-plus"></i> Agregar Cancha</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -123,8 +120,8 @@
                     </div>
                     <div class="form-row mb-3">
                         <div class="form-group col-md-4">
-                            <label for="tipo">Tipo</label>
-                            <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Tipo">
+                            <label for="tipo">Nombre</label>
+                            <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Nombre">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="direccion">Dirección</label>
@@ -176,22 +173,21 @@
     </div>
 </div>
 <!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title" id="editModalLabel"><i class="fas fa-edit"></i> Editar Cancha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form id="editForm" method="POST" action="">
                 @csrf
                 @method('PUT')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Editar Cancha</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="tipo">Tipo</label>
+                        <label for="tipo">Nombre</label>
                         <input type="text" class="form-control" id="tipo" name="tipo" required>
                     </div>
                     <div class="form-group">
@@ -263,6 +259,7 @@
     </div>
 </div>
 
+@stop
 
 @section('css')
 
@@ -278,6 +275,10 @@
     <!-- Existing scripts... -->
 
     <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             const deleteModal = document.getElementById('deleteModal');
             const deleteForm = document.getElementById('deleteForm');
