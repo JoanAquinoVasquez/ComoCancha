@@ -3,29 +3,25 @@
 @section('content')
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="container mt-5">
-            <!-- Cabecera con Información de la Cancha -->
+            <!-- Header con información de la cancha -->
             <div class="d-flex justify-content-between align-items-center p-3 mb-2 bg-custom text-white rounded-pill px-5"
                 style="background-color: #008149" data-cancha-id="{{ $cancha->id }}">
                 <div class="d-flex align-items-center">
-                    <h3>&nbsp;{{ $cancha->tipo }}</h3> <!-- Mostrar el tipo de cancha o el nombre -->
+                    <h3>&nbsp;{{ $cancha->tipo }}</h3>
                 </div>
                 <div class="star-rating">
-                    <!-- Sistema de valoración de estrellas -->
-                    <span class="fa fa-star" style="cursor: pointer" id="1star"></span>
-                    <span class="fa fa-star" style="cursor: pointer" id="2star"></span>
-                    <span class="fa fa-star" style="cursor: pointer" id="3star"></span>
-                    <span class="fa fa-star" style="cursor: pointer" id="4star"></span>
-                    <span class="fa fa-star" style="cursor: pointer" id="5star"></span>
+                    @for ($i = 1; $i <= 5; $i++)
+                        <span class="fa fa-star" style="cursor: pointer" id="{{ $i }}star"></span>
+                    @endfor
                 </div>
             </div>
         </div>
 
         <div class="container mt-5">
             <div class="row">
-                <!-- Sección de Imagen Principal -->
+                <!-- Sección de imágenes principales -->
                 <div class="col-md-4">
                     <div class="image-container">
-                        <!-- Galería de Imágenes Verticales -->
                         @foreach ($cancha->galeria as $imagen)
                             <div class="mb-3">
                                 <img src="{{ asset($imagen->image_path) }}" class="d-block w-100"
@@ -37,31 +33,29 @@
                 <div class="col-md-8">
                     <h2 class="text-color mb-3">Reservar</h2>
                     <div class="row">
-                        <!-- Sección de Datos de Reserva -->
+                        <!-- Sección de datos de reserva -->
                         <div class="col-md-6">
                             <div class="data-reservation">
                                 <div class="mb-3">
                                     <h5 for="selecthora" class="form-label fw-bold mb-3">Seleccionar Hora:</h5>
+                                    <input type="hidden" id="canchaId" value="{{ $cancha->id }}">
                                     <select class="form-select" id="selecthora">
                                         <option selected>Seleccione su hora</option>
-                                        <!-- Opciones de hora dinámicas -->
+                                        <!-- Las opciones de hora se llenarán aquí -->
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <h5 for="timeOptions" class="form-label fw-bold">Tiempo y Precio:</h5>
                                     @foreach ($precios as $precio)
-                                        <div class="form-check d-flex align-items-center">
-                                            <input class="form-check-input me-2" type="checkbox"
-                                                value="{{ $precio->amount }}" id="priceOption{{ $loop->index }}">
-                                            <label class="form-check-label"
-                                                for="priceOption{{ $loop->index }}">{{ $precio->turno }}</label>
-                                            <span class="ms-2">S/. {{ $precio->amount }}</span>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bold">{{ mb_strtoupper($precio->turno, 'UTF-8') }}:</span>
+                                            <span class="ms-2">S/. {{ number_format($precio->amount, 2) }}</span>
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                        <!-- Sección de Calendario -->
+                        <!-- Sección de calendario -->
                         <div class="col-md-6">
                             <div class="calendar">
                                 <h5 class="fw-bold">Elegir fecha:</h5>
@@ -71,16 +65,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <h5 class="fw-bold">Seleccionar Hora:</h5>
-                            <select class="form-select" id="selecthora">
-                                <option selected>Seleccione su hora</option>
-                                <!-- Las opciones se llenarán dinámicamente -->
-                            </select>
-                        </div>
                     </div>
 
-                    <!-- Sección Información Adicional -->
+                    <!-- Sección de información adicional -->
                     <div class="card-deck mb-5">
                         <div class="card rounded-4 shadow">
                             <h5 class="card-header rounded-top-4" style="background-color: #008149; color: white">
@@ -116,7 +103,7 @@
                             </div>
                         </div>
 
-                        <!-- Resumen de la Reserva -->
+                        <!-- Resumen de reserva -->
                         <div class="card rounded-4 shadow">
                             <h5 class="card-header rounded-top-4" style="background-color: #008149; color:white">Resumen de
                                 la Reserva</h5>
@@ -138,7 +125,8 @@
                                     <label for="reservaCosto" class="form-label">Costo:</label>
                                     <input type="text" class="form-control" id="costoDisplay" readonly>
                                 </div>
-                                <button class="btn btn-primary" id="confirmarReserva">Confirmar Reserva</button>
+                                <button class="btn btn-primary" id="confirmarReserva" data-bs-toggle="modal"
+                                    data-bs-target="#modalConfirmarReserva">Confirmar Reserva</button>
                             </div>
                         </div>
                     </div>
@@ -146,7 +134,7 @@
             </div>
         </div>
 
-        <!-- Modal para Confirmar Reserva -->
+        <!-- Modal de confirmación -->
         <div class="modal fade" id="modalConfirmarReserva" tabindex="-1" aria-labelledby="modalConfirmarReservaLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -170,50 +158,107 @@
         </div>
     </div>
 
-    <!-- Script para manejar la selección de fecha y hora -->
+    <!-- Scripts para manejo de fecha y hora -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(document).ready(function() {
-            // Obtener el ID de la cancha del atributo data-cancha-id
-            var canchaId = $('.bg-custom').data('cancha-id');
-
-            $('#datepicker').datepicker({
+            // Inicializa el datepicker
+            $("#datepicker").datepicker({
                 dateFormat: 'yy-mm-dd',
-                minDate: 0,
-                autoclose: true,
-                todayHighlight: true
-            }).on('change', function() {
-                var selectedDate = $(this).val();
+                minDate: 0, // Esto asegura que solo se pueden seleccionar fechas de hoy en adelante
+                onSelect: function(dateText) {
+                    // Cuando se selecciona una fecha, obtener horas disponibles
+                    var canchaId = $('#canchaId').val();
+                    $.ajax({
+                        url: "{{ route('get.available.hours') }}",
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            cancha_id: canchaId,
+                            fecha: dateText
+                        },
+                        success: function(response) {
+                            // Llena el select con las horas disponibles
+                            var selecthora = $('#selecthora');
+                            selecthora.empty();
+                            selecthora.append(
+                                '<option selected>Seleccione su hora</option>');
+                            $.each(response.horas, function(index, hora) {
+                                var horaInicio = hora.value;
+                                var horaFin = moment(hora.value, 'HH:mm:ss').add(1, 'hours').format('HH:mm:ss');
+                                selecthora.append('<option value="' + horaInicio + '">' + horaInicio + ' - ' + horaFin + '</option>');
+                            });
+                        },
+                        error: function() {
+                            alert(
+                                'Error al obtener las horas disponibles. Inténtelo de nuevo.'
+                                );
+                        }
+                    });
+                }
+            });
 
-                console.log('Fecha seleccionada:', selectedDate);
-                console.log('ID de cancha:', canchaId);
+            // Actualiza el resumen de reserva cuando cambian la fecha o la hora
+            $('#datepicker, #selecthora').change(updateSummary);
 
+            function updateSummary() {
+                var selectedDate = $('#datepicker').val();
+                var selectedTime = $('#selecthora').val();
+                var cost = 0;
+                var morningPrice = {{ $precios->where('turno', 'mañana')->first()->amount ?? 0 }};
+                var afternoonPrice = {{ $precios->where('turno', 'noche')->first()->amount ?? 0 }};
+
+                if (selectedTime) {
+                    if (selectedTime >= '00:00' && selectedTime < '18:00') { // Mañana
+                        cost = morningPrice;
+                    } else { // Tarde
+                        cost = afternoonPrice;
+                    }
+                }
+
+                $('#datepickerDisplay').val(selectedDate);
+                $('#horaDisplay').val(selectedTime);
+                $('#costoDisplay').val('S/. ' + cost.toFixed(2));
+            }
+
+            // Confirmar reserva
+            $('#confirmarReserva').on('click', function() {
+                $('#modalFecha').text($('#datepickerDisplay').val());
+                $('#modalHora').text($('#horaDisplay').val());
+                $('#modalCosto').text($('#costoDisplay').val());
+            });
+
+            $('#confirmarReservaModal').on('click', function() {
+                var canchaId = $('#canchaId').val();
+                var fecha = $('#datepickerDisplay').val();
+                var hora = $('#horaDisplay').val();
+                var costo = $('#costoDisplay').val();
                 $.ajax({
-                    url: "{{ route('get.available.hours') }}",
+                    url: '{{ route('reservar.store') }}', // Reemplaza con tu ruta
                     method: 'POST',
                     data: {
-                        fecha: selectedDate,
+                        _token: '{{ csrf_token() }}',
                         cancha_id: canchaId,
-                        _token: "{{ csrf_token() }}"
+                        fecha: fecha,
+                        hora: hora,
+                        costo: costo
                     },
-                    success: function(data) {
-                        var select = $('#selecthora');
-                        select.empty();
-
-                        if (data.length > 0) {
-                            $.each(data, function(index, hour) {
-                                select.append('<option value="' + hour + '">' + hour +
-                                    '</option>');
-                            });
-                        } else {
-                            select.append('<option value="">No hay horas disponibles</option>');
-                        }
+                    success: function(response) {
+                        alert('Reserva confirmada con éxito.');
+                        location.reload();
                     },
                     error: function(xhr) {
-                        console.error('Error al obtener las horas disponibles:', xhr
-                            .responseText);
+                        if (xhr.status === 401) { // Usuario no autenticado
+                            window.location.href =
+                            '{{ route('login') }}'; // Redirige a la página de login
+                        } else {
+                            alert('Error al confirmar la reserva. Inténtalo de nuevo.');
+                        }
                     }
                 });
             });

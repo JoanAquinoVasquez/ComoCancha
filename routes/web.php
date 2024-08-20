@@ -7,6 +7,7 @@ use App\Http\Controllers\DeporteController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\SedeController;
 use App\Actions\Fortify\CreateNewUser;
+use App\Http\Controllers\ReservaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,4 +71,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/servicios', [HomeController::class, 'showServicios'])->name('servicios');
     Route::get('/clientes', [HomeController::class, 'showClientes'])->name('clientes');
     Route::get('/reservas', [HomeController::class, 'showReservas'])->name('reservas');
+
+
+    Route::post('/reservar', [ReservaController::class, 'store'])->name('reservar.store');
 });

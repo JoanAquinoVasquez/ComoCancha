@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Reserva;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class ReservaController extends Controller
 {
@@ -13,58 +16,50 @@ class ReservaController extends Controller
         return response()->json($reservas);
     }
 
-    public function getAvailableHours(Request $request)
+    
+
+    public function __construct()
     {
-        $dia = $request->input('dia');
-        $cancha_id = $request->input('cancha_id');
-
-        // Obtener el horario para el día y cancha seleccionados
-        $horario = Horario::where('dia', $dia)
-            ->where('cancha_id', $cancha_id)
-            ->first();
-
-        if ($horario) {
-            $start_time = new \DateTime($horario->hora_inicio);
-            $end_time = new \DateTime($horario->hora_fin);
-
-            // Obtener las horas reservadas para esa cancha y día
-            $reservas = Reserva::where('cancha_id', $cancha_id)
-                ->whereDate('dia', $dia)
-                ->pluck('hora'); // Supongo que tienes un campo 'hora' en la tabla 'reserva'
-
-            $available_hours = [];
-
-            while ($start_time <= $end_time) {
-                $current_hour = $start_time->format('H:i');
-
-                // Agregar la hora al array de horas disponibles si no está en las reservas
-                if (!$reservas->contains($current_hour)) {
-                    $available_hours[] = $current_hour;
-                }
-
-                $start_time->modify('+1 hour'); // Incrementa de hora en hora
-            }
-
-            return response()->json($available_hours);
-        } else {
-            return response()->json([], 404); // No se encontró horario
-        }
+        $this->middleware('auth'); // Solo permite acceso a usuarios autenticados
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'fecha_reserva' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i:s',
-            'hora_fin' => 'required|date_format:H:i:s',
-            'estado' => 'required|integer',
-            'user_id' => 'required|exists:user,id',
-            'cancha_id' => 'required|exists:cancha,id',
-        ]);
+        \Log::info($request->all());
+        if (!Auth::check()) {
+            return response()->json(['error' => 'No autenticado'], 401); // Retorna un error si no está autenticado
+        }
 
-        $reserva = Reserva::create($validatedData);
-        return response()->json($reserva, 201);
-    }
+        // Obtener los datos de la solicitud
+        $fecha = $request->input('fecha');
+        $hora = $request->input('hora');
+        $canchaId = $request->input('cancha_id');
+
+        // Determinar el estado y la hora de fin
+        $estado = 0; // Puedes cambiar esto según tu lógica
+        $horaInicio = $hora;
+        $horaFin = Carbon::parse($hora)->addHours(1)->format('H:i'); // Por ejemplo, una reserva de 1 hora
+        \Log::info($horaInicio);
+        \Log::info($horaFin);
+        // Crear la reserva
+        $reserva = new Reserva();
+        $reserva->fecha_reserva = $fecha;
+        $reserva->hora_inicio = $horaInicio;
+        $reserva->hora_fin = $horaFin;
+        $reserva->estado = $estado;
+        $reserva->user_id = $request->user()->id; // Asumiendo que el usuario está autenticado
+        $reserva->cancha_id = $canchaId;
+        $reserva->save();
+
+        // Retornar una respuesta
+        return response()->json([
+            'success' => true,
+            'message' => 'Reserva creada exitosamente.',
+            'reserva' => $reserva
+        ]);
+    } 
+
+
     public function show($id)
     {
         $reserva = Reserva::findOrFail($id);
