@@ -16,7 +16,7 @@ class CanchaSeeder extends Seeder
                 'descripcion' => 'Cancha de fútbol profesional con césped artificial',
                 'deporte_id' => 1,
                 'sede_id' => 1,
-                'user_id' => 1,
+                'user_id' => 3,
                 'estado' => 0
             ],
             [
@@ -25,7 +25,7 @@ class CanchaSeeder extends Seeder
                 'descripcion' => 'Cancha de fútbol con césped natural',
                 'deporte_id' => 1,
                 'sede_id' => 2,
-                'user_id' => 1,
+                'user_id' => 3,
                 'estado' => 0
             ],
             [
@@ -34,7 +34,7 @@ class CanchaSeeder extends Seeder
                 'descripcion' => 'Cancha de fútbol con césped artificial',
                 'deporte_id' => 1,
                 'sede_id' => 3,
-                'user_id' => 2,
+                'user_id' => 4,
                 'estado' => 0
             ],
             [
@@ -43,7 +43,7 @@ class CanchaSeeder extends Seeder
                 'descripcion' => 'Cancha de baloncesto techada',
                 'deporte_id' => 2,
                 'sede_id' => 4,
-                'user_id' => 2,
+                'user_id' => 4,
                 'estado' => 0
             ],
             [
@@ -52,7 +52,16 @@ class CanchaSeeder extends Seeder
                 'descripcion' => 'Cancha de voleibol con arena',
                 'deporte_id' => 3,
                 'sede_id' => 2,
-                'user_id' => 1,
+                'user_id' => 5,
+                'estado' => 0
+            ],
+            [
+                'tipo' => 'Wimbledon',
+                'direccion' => 'Av. Santa Rosa 123',
+                'descripcion' => 'Cancha de tenis profesional',
+                'deporte_id' => 4,
+                'sede_id' => 1,
+                'user_id' => 5,
                 'estado' => 0
             ]
         ]);

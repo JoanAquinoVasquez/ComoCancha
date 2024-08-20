@@ -7,41 +7,27 @@ use Illuminate\Http\Request;
 
 class DeporteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+    public function index(){
         $deportes = Deporte::all();
         return response()->json($deportes);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+    public function show(Deporte $deporte){
+        return response()->json($deporte);
+    }
+
+    public function store(Request $request){
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
         ]);
 
         $deporte = Deporte::create($validatedData);
-        return response()->json($deporte, 201);
+        return redirect()->route('deportes')->with('success', 'Deporte creado con éxito.');
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $deporte = Deporte::findOrFail($id);
-        return response()->json($deporte);
-    }
-
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $validatedData = $request->validate([
             'nombre' => 'sometimes|required|string|max:255',
             'descripcion' => 'sometimes|required|string',
@@ -49,13 +35,12 @@ class DeporteController extends Controller
 
         $deporte = Deporte::findOrFail($id);
         $deporte->update($validatedData);
-        return response()->json($deporte);
+        return redirect()->route('deportes')->with('success', 'Deporte actualizado con éxito.');
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         $deporte = Deporte::findOrFail($id);
         $deporte->delete();
-        return response()->json(null, 204);
+        return redirect()->route('deportes')->with('success', 'Deporte eliminado con éxito.');
     }
 }

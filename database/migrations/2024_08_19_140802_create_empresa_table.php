@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galeria', function (Blueprint $table) {
+        Schema::create('empresa', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->string('descripcion')->nullable();
-            $table->string('image_path');
-            $table->foreignId('cancha_id')->constrained('cancha')->onDelete('cascade');
+            $table->string('nombre');
+            $table->timestamps();
+        });
+
+        // Añadir columna empresa_id a la tabla users
+        Schema::table('user', function (Blueprint $table) {
+            $table->foreignId('empresa_id')->nullable()->constrained('empresa');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galeria');
+        Schema::dropIfExists('empresa');
     }
 };

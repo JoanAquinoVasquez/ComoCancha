@@ -17,4 +17,8 @@ class Sede extends Model
     {
         return $this->belongsTo(Distrito::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

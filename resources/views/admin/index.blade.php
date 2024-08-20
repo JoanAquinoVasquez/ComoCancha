@@ -112,8 +112,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Superficies</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            Reservas</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $numReservas }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-ruler-vertical fa-2x text-gray-300"></i>
@@ -163,8 +163,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Usuarios</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            Ganancia</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalGanancias }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -182,7 +182,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Clientes</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalClientes }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user-shield fa-2x text-gray-300"></i>

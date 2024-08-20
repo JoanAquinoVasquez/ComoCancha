@@ -15,7 +15,7 @@ class ReservaSeeder extends Seeder
                 'hora_inicio' => '10:00:00',
                 'hora_fin' => '12:00:00',
                 'estado' => 1,
-                'user_id' => 1,
+                'user_id' => 7,
                 'cancha_id' => 4
             ],
             [
@@ -23,7 +23,7 @@ class ReservaSeeder extends Seeder
                 'hora_inicio' => '14:00:00',
                 'hora_fin' => '16:00:00',
                 'estado' => 0,
-                'user_id' => 1,
+                'user_id' => 7,
                 'cancha_id' => 1
             ],
             [
@@ -31,7 +31,7 @@ class ReservaSeeder extends Seeder
                 'hora_inicio' => '18:00:00',
                 'hora_fin' => '20:00:00',
                 'estado' => 1,
-                'user_id' => 2,
+                'user_id' => 7,
                 'cancha_id' => 3
             ],
             [
@@ -39,7 +39,7 @@ class ReservaSeeder extends Seeder
                 'hora_inicio' => '08:00:00',
                 'hora_fin' => '10:00:00',
                 'estado' => 0,
-                'user_id' => 2,
+                'user_id' => 7,
                 'cancha_id' => 2
             ],
             // Agrega más reservas y relaciona con el ID del cliente y cancha correspondiente

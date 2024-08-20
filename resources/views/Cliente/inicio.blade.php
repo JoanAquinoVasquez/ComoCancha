@@ -60,7 +60,7 @@
                                         <span class="sr-only">Next</span>
                                     </a>
                                 </div>
-                            @else
+                            @elseif ($cancha->galeria && $cancha->galeria->count() === 1)
                                 <img src="{{ asset($cancha->galeria->first()->image_path) }}" class="card-img-top"
                                     style="height: 200px; object-fit: cover;" alt="Imagen de cancha">
                             @endif
