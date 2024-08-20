@@ -12,11 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Estilos de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <!-- Añadir los estilos de jQuery UI Datepicker -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
     <div class="preloader flex-column justify-content-center align-items-center" style="height: 0px;">
-        <img src="public/vendor/adminlte/dist/img/AdminLTELogo.png" class="img-circle animation__shake"
+        <img src="{{ asset('img/comocannchablanco.png') }}" class="img-circle animation__shake"
             alt="AdminLTE Preloader Image" width="60" height="60"
             style="animation-iteration-count: infinite; display: none;">
     </div>
@@ -25,7 +27,7 @@
     <nav class="navbar navbar-expand-lg" style="background-color: #008149;">
         <a class="navbar-brand text-white" href="#">
             <!-- Logo de imagen -->
-            <img src="vendor/adminlte/dist/img/comocannchablanco.png" style="height:40px; width:auto" alt="Logo">
+            <img src="{{ asset('img/comocannchablanco.png') }}" style="height:40px; width:auto" alt="Logo">
             <!-- Texto del enlace -->
             Como<b>Cancha</b>
         </a>
@@ -50,7 +52,7 @@
                     <a class="nav-link text-white" href="#">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Contacto</a>
+                    <a class="nav-link text-white" href="{{ route('Cliente.contacto') }}">Contacto</a>
                 </li>
             </ul>
 
@@ -179,7 +181,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{route('dashboard')}}">
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Dashboard
                             </a>
@@ -276,6 +278,49 @@
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+
+    {{-- Canchas --}}
+    <script>
+        $(document).ready(function() {
+            $('#datepicker').datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: 0,
+                autoclose: true,
+                todayHighlight: true
+            }).on('change', function() {
+                var selectedDate = $(this).val();
+                var canchaId = $('#cancha_select').val();
+
+                $.ajax({
+                    url: '/get-available-hours',
+                    method: 'POST',
+                    data: {
+                        dia: selectedDate,
+                        cancha_id: canchaId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        var select = $('#hour_select');
+                        select.empty();
+
+                        if (data.length > 0) {
+                            $.each(data, function(index, hour) {
+                                select.append('<option value="' + hour + '">' + hour +
+                                    '</option>');
+                            });
+                        } else {
+                            select.append('<option value="">No hay horas disponibles</option>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Luego jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </body>
 
 </html>

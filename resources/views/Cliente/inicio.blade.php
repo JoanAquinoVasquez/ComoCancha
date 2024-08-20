@@ -36,7 +36,7 @@
         <div class="container mt-5">
             <div class="row justify-content-center g-2">
                 @foreach ($canchas as $cancha)
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="card h-100" style="width: 100%;">
                             <!-- Carousel -->
                             @if ($cancha->galeria->count() > 1)
@@ -77,7 +77,7 @@
                                     {{ $cancha->precio->where('turno', 'noche')->first()->amount ?? 'N/A' }}
                                 </p>
                                 <div class="mt-auto">
-                                    <!-- Puedes agregar botones aquí si es necesario -->
+                                    <a href="{{ route('Cliente.cancha', ['id' => $cancha->id]) }}" class="btn btn-success">Reservar</a>
                                 </div>
                             </div>
                         </div>

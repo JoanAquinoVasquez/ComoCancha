@@ -22,6 +22,13 @@ use App\Actions\Fortify\CreateNewUser;
 
 Route::get('/', [HomeController::class, 'showInicio'])->name('Cliente.inicio');
 
+Route::get('/nosotros', [HomeController::class, 'showNosotros'])->name('Cliente.nosotros');
+Route::get('/cancha/{id}', [HomeController::class, 'showCancha'])->name('Cliente.cancha');
+Route::get('/contacto', [HomeController::class, 'showContacto'])->name('Cliente.contacto');
+
+Route::post('/get-available-hours', [CanchaController::class, 'getAvailableHours'])->name('get.available.hours');
+
+
 // Rutas protegidas por autenticación
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/admin', [HomeController::class, 'index'])->name('admin.home');
@@ -41,6 +48,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/usuarios', [HomeController::class, 'showUsuarios'])->name('usuarios');
     Route::get('/clientes', [HomeController::class, 'showClientes'])->name('clientes');
     Route::get('/reservas', [HomeController::class, 'showReservas'])->name('reservas');
-
-    Route::get('/nosotros', [HomeController::class, 'showNosotros'])->name('Cliente.nosotros');
 });

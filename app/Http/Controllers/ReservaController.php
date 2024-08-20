@@ -13,6 +13,44 @@ class ReservaController extends Controller
         return response()->json($reservas);
     }
 
+    public function getAvailableHours(Request $request)
+    {
+        $dia = $request->input('dia');
+        $cancha_id = $request->input('cancha_id');
+
+        // Obtener el horario para el día y cancha seleccionados
+        $horario = Horario::where('dia', $dia)
+            ->where('cancha_id', $cancha_id)
+            ->first();
+
+        if ($horario) {
+            $start_time = new \DateTime($horario->hora_inicio);
+            $end_time = new \DateTime($horario->hora_fin);
+
+            // Obtener las horas reservadas para esa cancha y día
+            $reservas = Reserva::where('cancha_id', $cancha_id)
+                ->whereDate('dia', $dia)
+                ->pluck('hora'); // Supongo que tienes un campo 'hora' en la tabla 'reserva'
+
+            $available_hours = [];
+
+            while ($start_time <= $end_time) {
+                $current_hour = $start_time->format('H:i');
+
+                // Agregar la hora al array de horas disponibles si no está en las reservas
+                if (!$reservas->contains($current_hour)) {
+                    $available_hours[] = $current_hour;
+                }
+
+                $start_time->modify('+1 hour'); // Incrementa de hora en hora
+            }
+
+            return response()->json($available_hours);
+        } else {
+            return response()->json([], 404); // No se encontró horario
+        }
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([

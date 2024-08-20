@@ -116,4 +116,64 @@ class HomeController extends Controller
         // Devolver la vista 'dashboard' con los datos necesarios
         return view('Cliente.nosotros');
     }
+
+    public function showCancha($id)
+    {
+        // Obtener la cancha por ID
+        $cancha = Cancha::with(['galeria', 'precio'])->findOrFail($id);
+
+        // Acceder a los datos relacionados
+        $galeria = $cancha->galeria;
+        $precios = $cancha->precio;
+        $horarios = $cancha->horario;
+
+        // Pasar los datos a la vista
+        return view('Cliente.cancha', compact('cancha', 'galeria', 'precios', 'horarios'));
+    }
+
+    public function getAvailableHours(Request $request)
+    {
+        $validated = $request->validate([
+            'fecha' => 'required|date',
+            'cancha_id' => 'required|integer|exists:canchas,id',
+        ]);
+
+        $fechaSeleccionada = $validated['fecha'];
+        $canchaId = $validated['cancha_id'];
+
+        $horarios = Horario::where('cancha_id', $canchaId)->get();
+        $reservas = Reserva::whereDate('fecha_reserva', $fechaSeleccionada)
+            ->where('cancha_id', $canchaId)
+            ->get(['hora_inicio', 'hora_fin']);
+
+        $horasDisponibles = [];
+
+        foreach ($horarios as $horario) {
+            $horaInicio = strtotime($horario->hora_inicio);
+            $horaFin = strtotime($horario->hora_fin);
+
+            $disponible = true;
+            foreach ($reservas as $reserva) {
+                $reservaInicio = strtotime($reserva->hora_inicio);
+                $reservaFin = strtotime($reserva->hora_fin);
+
+                if (($horaInicio < $reservaFin) && ($horaFin > $reservaInicio)) {
+                    $disponible = false;
+                    break;
+                }
+            }
+
+            if ($disponible) {
+                $horasDisponibles[] = $horario->hora_inicio . ' - ' . $horario->hora_fin;
+            }
+        }
+
+        return response()->json($horasDisponibles);
+    }
+
+    public function showContacto()
+    {
+        // Devolver la vista 'dashboard' con los datos necesarios
+        return view('Cliente.contacto');
+    }
 }
