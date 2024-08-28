@@ -2,13 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-
 use App\Models\User;
-use App\Models\Empresa;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UserSeeder extends Seeder
 {
@@ -17,19 +14,34 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // Crear permisos
+        $manageAdmin = Permission::create(['name' => 'Administrador']);
+        $manageClients = Permission::create(['name' => 'Cliente']);
+        $manageDueño = Permission::create(['name' => 'Dueño']);
         // Crear roles
         $clienteRole = Role::create(['name' => 'Cliente']);
         $duenoRole = Role::create(['name' => 'Dueño']);
         $adminRole = Role::create(['name' => 'Administrador']);
 
-       
+        $adminRole->givePermissionTo([
+            $manageAdmin,
+        ]);
+
+        $duenoRole->givePermissionTo([
+            $manageDueño,
+        ]);
+
+        $clienteRole->givePermissionTo([
+            $manageClients,
+        ]);
 
         $dueno1 = User::create([
             'name' => 'Walther Galan',
             'email' => 'walther@example.com',
             'password' => bcrypt('walther'),
             'empresa_id' => 1,
-           
+
         ]);
 
         $dueno2 = User::create([
@@ -37,7 +49,7 @@ class UserSeeder extends Seeder
             'email' => 'martin@example.com',
             'password' => bcrypt('martin'),
             'empresa_id' => 2,
-           
+
         ]);
 
         $admin1 = User::create([

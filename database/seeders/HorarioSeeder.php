@@ -194,43 +194,6 @@ class HorarioSeeder extends Seeder
                 'cancha_id' => 5,
                 'user_id' => 5
             ],
-
-            // Horarios para Wimbledon (Cancha ID: 6)
-            [
-                'dia' => 'Lunes',
-                'hora_inicio' => '10:00:00',
-                'hora_fin' => '18:00:00',
-                'cancha_id' => 6,
-                'user_id' => 5
-            ],
-            [
-                'dia' => 'Martes',
-                'hora_inicio' => '08:00:00',
-                'hora_fin' => '20:00:00',
-                'cancha_id' => 6,
-                'user_id' => 5
-            ],
-            [
-                'dia' => 'Miercoles',
-                'hora_inicio' => '08:00:00',
-                'hora_fin' => '18:00:00',
-                'cancha_id' => 6,
-                'user_id' => 5
-            ],
-            [
-                'dia' => 'Jueves',
-                'hora_inicio' => '09:00:00',
-                'hora_fin' => '19:00:00',
-                'cancha_id' => 6,
-                'user_id' => 5
-            ],
-            [
-                'dia' => 'Viernes',
-                'hora_inicio' => '08:00:00',
-                'hora_fin' => '17:00:00',
-                'cancha_id' => 6,
-                'user_id' => 5
-            ],
             [
                 'dia' => 'Sabado',
                 'hora_inicio' => '09:00:00',
@@ -264,13 +227,6 @@ class HorarioSeeder extends Seeder
                 'hora_inicio' => '09:00:00',
                 'hora_fin' => '13:00:00',
                 'cancha_id' => 5,
-                'user_id' => 5
-            ],
-            [
-                'dia' => 'Sabado',
-                'hora_inicio' => '10:00:00',
-                'hora_fin' => '18:00:00',
-                'cancha_id' => 6,
                 'user_id' => 5
             ],
             // Horarios para domingos
@@ -307,13 +263,6 @@ class HorarioSeeder extends Seeder
                 'hora_inicio' => '09:00:00',
                 'hora_fin' => '15:00:00',
                 'cancha_id' => 5,
-                'user_id' => 5
-            ],
-            [
-                'dia' => 'Domingo',
-                'hora_inicio' => '10:00:00',
-                'hora_fin' => '16:00:00',
-                'cancha_id' => 6,
                 'user_id' => 5
             ],
         ]);

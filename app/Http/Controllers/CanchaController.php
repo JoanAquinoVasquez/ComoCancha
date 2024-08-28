@@ -187,6 +187,8 @@ class CanchaController extends Controller
     public function destroy($id)
     {
         $cancha = Cancha::findOrFail($id);
+        // Elimina todos los horarios relacionados a esta cancha
+        $cancha->horarios()->delete();
         $cancha->delete();
         return redirect()->route('miscanchas')->with('success', 'Cancha eliminada exitosamente.');
 

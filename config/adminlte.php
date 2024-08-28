@@ -12,7 +12,7 @@ return [
     | For detailed instructions you can look the title section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'title' => 'ComoCancha',
     'title_prefix' => 'Inicio |',
@@ -28,7 +28,7 @@ return [
     | For detailed instructions you can look the favicon section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'use_ico_only' => true,
     'use_full_favicon' => false,
@@ -45,7 +45,7 @@ return [
     | For detailed instructions you can look the google fonts section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'google_fonts' => [
         'allowed' => true,
@@ -61,7 +61,7 @@ return [
     | For detailed instructions you can look the logo section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'logo' => 'Como<b>Cancha</b>',
     'logo_img' => 'vendor/adminlte/dist/img/comocancha.png',
@@ -81,7 +81,7 @@ return [
     | For detailed instructions you can look the auth logo section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'auth_logo' => [
         'enabled' => false,
@@ -104,7 +104,7 @@ return [
     | For detailed instructions you can look the preloader section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'preloader' => [
         'enabled' => true,
@@ -127,7 +127,7 @@ return [
     | For detailed instructions you can look the user menu section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'usermenu_enabled' => true,
     'usermenu_header' => true,
@@ -146,7 +146,7 @@ return [
     | For detailed instructions you can look the layout section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
-    */
+     */
 
     'layout_topnav' => null,
     'layout_boxed' => null,
@@ -165,7 +165,7 @@ return [
     | For detailed instructions you can look the auth classes section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
-    */
+     */
 
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
@@ -184,7 +184,7 @@ return [
     | For detailed instructions you can look the admin panel classes here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
-    */
+     */
 
     'classes_body' => '',
     'classes_brand' => '',
@@ -208,7 +208,7 @@ return [
     | For detailed instructions you can look the sidebar section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
-    */
+     */
 
     'sidebar_mini' => 'lg',
     'sidebar_collapse' => false,
@@ -230,7 +230,7 @@ return [
     | For detailed instructions you can look the right sidebar section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
-    */
+     */
 
     'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
@@ -250,7 +250,7 @@ return [
     | For detailed instructions you can look the urls section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
-    */
+     */
 
     'use_route_url' => false,
     'dashboard_url' => 'dashboard',
@@ -271,7 +271,7 @@ return [
     | For detailed instructions you can look the laravel mix section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     |
-    */
+     */
 
     'enabled_laravel_mix' => false,
     'laravel_mix_css_path' => 'css/app.css',
@@ -287,7 +287,7 @@ return [
     | For detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
-    */
+     */
 
     'menu' => [
         // Navbar items:
@@ -315,6 +315,7 @@ return [
             'text' => 'Dashboard',
             'url' => '/dashboard',
             'icon' => 'far fa-fw fa-file',
+            'can' => ['Administrador','Dueño'],
             //'label'       => 1,
             //'label_color' => 'success',
         ],
@@ -322,118 +323,127 @@ return [
             'text' => 'Mis Canchas',
             'url' => '/miscanchas',
             'icon' => 'fas fa-futbol',
+           'can' => ['Administrador','Dueño'],
         ],
         [
             'text' => 'Horarios',
             'url' => '/horarios',
             'icon' => 'fas fa-clock',
+            'can' => ['Administrador','Dueño'],
         ],
         [
             'text' => 'Deporte',
             'url' => '/deportes',
             'icon' => 'fa fa-flag',
+            'can' => ['Administrador','Dueño'],
         ],
         [
             'text' => 'Mis Sedes',
             'url' => '/sedes',
             'icon' => 'fas fa-map-marker-alt',
+            'can' => ['Administrador','Dueño'],
         ],
-      //  [
-           // 'text' => 'Superficie',
-           // 'url' => '/superficies',
-           // 'icon' => 'fas fa-ruler-vertical',
+        //  [
+        // 'text' => 'Superficie',
+        // 'url' => '/superficies',
+        // 'icon' => 'fas fa-ruler-vertical',
         //],
-      //  [
+        //  [
         //    'text' => 'Mis Servicios',
-         //   'url' => '/servicios',
-          //  'icon' => 'fas fa-briefcase',
+        //   'url' => '/servicios',
+        //  'icon' => 'fas fa-briefcase',
         // ],
         [
             'text' => 'Usuarios',
             'url' => '/usuarios',
             'icon' => 'fas fa-users',
+            'can' => ['Administrador','Dueño'],
         ],
         [
             'text' => 'Administración',
             'url' => '#',
             'icon' => 'fas fa-tachometer-alt',
+           'can' => ['Administrador','Dueño'],
         ],
         ['header' => 'GESTIÓN DE RESERVAS'],
         [
             'text' => 'Clientes',
             'url' => '/clientes',
             'icon' => 'fas fa-user-shield',
+            'can' => ['Administrador','Dueño'],
         ],
         [
             'text' => 'Reservas',
             'url' => '/reservas',
             'icon' => 'fas fa-ticket-alt',
         ],
-        ['header' => 'GESTIÓN DE USUARIO'],
+        ['header' => 'GESTIÓN DE USUARIO', 'can' => 'Administrador',],
         [
             'text' => 'profile',
             'url' => 'user/profile',
             'icon' => 'fas fa-fw fa-user',
+            'can' => ['Administrador','Dueño'],
         ],
         [
             'text' => 'Crear Usuario',
             'url' => 'register',
             'icon' => 'fa fa-user-plus',
+            'can' => ['Administrador','Dueño'],
         ],
         /*[
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],*/
+    'text' => 'multilevel',
+    'icon' => 'fas fa-fw fa-share',
+    'submenu' => [
+    [
+    'text' => 'level_one',
+    'url' => '#',
+    ],
+    [
+    'text' => 'level_one',
+    'url' => '#',
+    'submenu' => [
+    [
+    'text' => 'level_two',
+    'url' => '#',
+    ],
+    [
+    'text' => 'level_two',
+    'url' => '#',
+    'submenu' => [
+    [
+    'text' => 'level_three',
+    'url' => '#',
+    ],
+    [
+    'text' => 'level_three',
+    'url' => '#',
+    ],
+    ],
+    ],
+    ],
+    ],
+    [
+    'text' => 'level_one',
+    'url' => '#',
+    ],
+    ],
+    ],
+    ['header' => 'labels'],
+    [
+    'text' => 'important',
+    'icon_color' => 'red',
+    'url' => '#',
+    ],
+    [
+    'text' => 'warning',
+    'icon_color' => 'yellow',
+    'url' => '#',
+    ],
+    [
+    'text' => 'information',
+    'icon_color' => 'cyan',
+    'url' => '#',
+    ],*/
     ],
 
     /*
@@ -446,7 +456,7 @@ return [
     | For detailed instructions you can look the menu filters section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
-    */
+     */
 
     'filters' => [
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
@@ -468,7 +478,7 @@ return [
     | For detailed instructions you can look the plugins section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Plugins-Configuration
     |
-    */
+     */
 
     'plugins' => [
         'Datatables' => [
@@ -554,7 +564,7 @@ return [
     | For detailed instructions you can look the iframe mode section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/IFrame-Mode-Configuration
     |
-    */
+     */
 
     'iframe' => [
         'default_tab' => [
@@ -586,7 +596,7 @@ return [
     | For detailed instructions you can look the livewire here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     |
-    */
+     */
 
     'livewire' => false,
 ];

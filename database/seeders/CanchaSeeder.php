@@ -55,15 +55,6 @@ class CanchaSeeder extends Seeder
                 'user_id' => 5,
                 'estado' => 0
             ],
-            [
-                'tipo' => 'Wimbledon',
-                'direccion' => 'Av. Santa Rosa 123',
-                'descripcion' => 'Cancha de tenis profesional',
-                'deporte_id' => 4,
-                'sede_id' => 1,
-                'user_id' => 5,
-                'estado' => 0
-            ]
         ]);
     }
 }

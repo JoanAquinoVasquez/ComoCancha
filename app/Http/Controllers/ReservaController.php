@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserva;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-
 
 class ReservaController extends Controller
 {
@@ -15,8 +14,6 @@ class ReservaController extends Controller
         $reservas = Reserva::all();
         return response()->json($reservas);
     }
-
-    
 
     public function __construct()
     {
@@ -46,6 +43,11 @@ class ReservaController extends Controller
         $reserva->fecha_reserva = $fecha;
         $reserva->hora_inicio = $horaInicio;
         $reserva->hora_fin = $horaFin;
+        if ($request->input('action') == 'confirmar') {
+            $estado = 0;
+        } else {
+            $estado = 1;
+        }
         $reserva->estado = $estado;
         $reserva->user_id = $request->user()->id; // Asumiendo que el usuario está autenticado
         $reserva->cancha_id = $canchaId;
@@ -55,10 +57,9 @@ class ReservaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Reserva creada exitosamente.',
-            'reserva' => $reserva
+            'reserva' => $reserva,
         ]);
-    } 
-
+    }
 
     public function show($id)
     {
@@ -68,17 +69,12 @@ class ReservaController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'fecha_reserva' => 'sometimes|required|date',
-            'hora_inicio' => 'sometimes|required|time',
-            'hora_fin' => 'sometimes|required|time',
-            'estado' => 'sometimes|required|integer',
-            'cliente_id' => 'sometimes|required|exists:cliente,id',
-            'cancha_id' => 'sometimes|required|exists:cancha,id',
-        ]);
-
+        \Log::info($request->all());
         $reserva = Reserva::findOrFail($id);
-        $reserva->update($validatedData);
+        \Log::info($id);
+        // Cambiar el estado de la reserva
+        $reserva->estado = 1; // Cambiar el estado a 1
+        $reserva->save(); // Guardar los cambios
         return response()->json($reserva);
     }
 

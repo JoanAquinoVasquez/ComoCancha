@@ -89,16 +89,6 @@
                                     <li class="list-group-item no-icon">
                                         <span>Deporte: {{ $cancha->deporte->nombre ?? 'No especificado' }}</span>
                                     </li>
-                                    <li class="list-group-item no-icon">
-                                        <span>Superficie: {{ $cancha->superficie ?? 'No especificada' }} Dimensiones:
-                                            {{ $cancha->dimensiones ?? 'No especificadas' }}</span>
-                                    </li>
-                                    <li class="list-group-item no-icon">
-                                        <span>Instalaciones: {{ $cancha->instalaciones ?? 'No especificadas' }}</span>
-                                    </li>
-                                    <li class="list-group-item no-icon">
-                                        <span>Disponibilidad: {{ $cancha->disponibilidad ?? 'No especificada' }}</span>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -126,7 +116,10 @@
                                     <input type="text" class="form-control" id="costoDisplay" readonly>
                                 </div>
                                 <button class="btn btn-primary" id="confirmarReserva" data-bs-toggle="modal"
-                                    data-bs-target="#modalConfirmarReserva">Confirmar Reserva</button>
+                                    data-bs-target="#modalConfirmarReserva">Reservar</button>
+
+                                <button type="button" class="btn btn-custom rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#paymentModal">Pagar Ahora</button>
                             </div>
                         </div>
                     </div>
@@ -151,28 +144,414 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="confirmarReservaModal">Confirmar</button>
+                        <button type="button" class="btn btn-primary" id="confirmarReservaModal">Reservar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Pasarela de Pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>Métodos de Pago</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard"
+                                    value="creditCard" checked>
+                                <img src="{{ asset('img/logovisa.jpg') }}" class="payment-method-img2" alt="">
+                                <label class="form-check-label" for="creditCard">
+                                    Tarjeta de Crédito/Débito
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="yape"
+                                    value="yape">
+                                <img src="{{ asset('img/logoyape.png') }}" class="payment-method-img" alt="">
+                                <label class="form-check-label" for="yape">
+                                    Yape
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-8" id="paymentDetails">
+                            <!-- Aquí se cargará dinámicamente el formulario según la selección -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer center">
+                    <button type="button" class="btn btn-pagar" id="payButton">Pagar</button>
+                </div>
+                <div id="paymentPopup" class="popup">
+                    <div class="popup-content">
+                        <div id="paymentDetails"></div>
+                        <div id="message" class="message"></div> <!-- Contenedor para mensajes -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        /* Estilos generales para el popup */
+        .modal-content {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            background-color: #008149;
+            color: white;
+            padding: 16px;
+            border-bottom: none;
+        }
+
+        .modal-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 30px;
+            background-color: #f8f9fa;
+        }
+
+        .modal-footer {
+            border-top: none;
+            padding: 16px 30px;
+            justify-content: space-between;
+        }
+
+        /* Estilos para los métodos de pago */
+        h6 {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #008149;
+        }
+
+        .form-check-label {
+            margin-left: 10px;
+            font-size: 1.1rem;
+        }
+
+        .form-check-input:checked+.form-check-label {
+            font-weight: bold;
+            color: #008149;
+        }
+
+        /* Estilos para los inputs */
+        .form-control {
+            border-radius: 10px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        /* Botones personalizados */
+        .btn-custom {
+            background-color: #008149;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #005f36;
+        }
+
+        .btn-close {
+            background-color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            border: 2px solid #008149;
+        }
+
+        .btn-close:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Personalización del radio button */
+        .form-check-input[type="radio"] {
+            appearance: none;
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            border: 2px solid #008149;
+            transition: background-color 0.3s ease;
+            margin-top: 0.3rem;
+        }
+
+        .form-check-input[type="radio"]:checked {
+            background-color: #008149;
+            border-color: #005f36;
+        }
+
+        .form-check-input[type="radio"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.25rem rgba(0, 129, 73, 0.25);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .payment-method-img {
+            width: 50px;
+            margin: 10px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .payment-method-img2 {
+            width: 100px;
+            margin: 10px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        /* Centrar el contenido del pie del modal */
+        .modal-footer.center {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* Estilo para el botón */
+        .btn-pagar {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-pagar:hover {
+            background-color: #218838;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-pagar:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+        }
+    </style>
+
     <!-- Scripts para manejo de fecha y hora -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentDetails = document.getElementById('paymentDetails');
+            const payButton = document.getElementById('payButton');
+            const messageDiv = document.getElementById('message');
+
+            const creditCardForm = `
+        <h6>Detalles de la Tarjeta</h6>
+        <div class="mb-3">
+            <label for="cardNumber" class="form-label">Número de Tarjeta</label>
+            <input type="text" class="form-control" id="cardNumber" placeholder="** ** ** **">
+        </div>
+        <div class="mb-3">
+            <label for="cardName" class="form-label">Nombre en la Tarjeta</label>
+            <input type="text" class="form-control" id="cardName">
+        </div>
+        <div class="mb-3 row">
+            <div class="col mb-3">
+                <label for="expiryDate" class="form-label">Fecha de Expiración</label>
+                <input type="text" class="form-control" id="expiryDate" placeholder="MM/AA" maxlength="5">
+            </div>
+            <div class="col mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="*">
+            </div>
+        </div>
+    `;
+
+            const yapeForm = `
+        <h6>Detalles de Yape</h6>
+        <div class="mb-3" id="phoneContainer">
+            <label for="phoneNumber" class="form-label">Número de Teléfono</label>
+            <input type="text" class="form-control" id="phoneNumber" placeholder="999 999 999">
+        </div>
+        <div class="mb-3">
+            <label for="yapeCode" class="form-label">Código de Confirmación</label>
+            <input type="text" class="form-control" id="yapeCode" placeholder="**">
+        </div>
+    `;
+
+            const attachCardEvents = () => {
+                const cardNumberInput = document.getElementById('cardNumber');
+                const expiryDateInput = document.getElementById('expiryDate');
+                const cvvInput = document.getElementById('cvv');
+
+                const formatCardNumber = (value) => {
+                    value = value.replace(/\D/g, '');
+                    // Limita la longitud a 16 dígitos
+                    value = value.substring(0, 16);
+                    return value.replace(/(.{4})/g, '$1 ').trim();
+                };
+
+                cardNumberInput.addEventListener('input', function(e) {
+                    e.target.value = formatCardNumber(e.target.value);
+                });
+
+                cardNumberInput.addEventListener('blur', function(e) {
+                    const value = e.target.value.replace(/\s+/g, '');
+                    if (value.length !== 16) {
+                        showMessage('El número de tarjeta debe tener 16 dígitos.', 'error');
+                        e.target.focus();
+                    }
+                });
+
+                expiryDateInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/[^0-9/]/g, '');
+                });
+
+                cvvInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                    e.target.value = e.target.value.substring(0, 3);
+                });
+            };
+
+            const attachYapeEvents = () => {
+                const phoneNumberInput = document.getElementById('phoneNumber');
+                const yapeCodeInput = document.getElementById('yapeCode');
+
+                phoneNumberInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/\D/g, '');
+                    if (e.target.value.length > 9) {
+                        e.target.value = e.target.value.slice(0, 9);
+                    }
+                });
+
+                yapeCodeInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                    if (e.target.value.length > 6) {
+                        e.target.value = e.target.value.slice(0, 6);
+                    }
+                });
+            };
+
+            const showMessage = (message, type) => {
+                messageDiv.textContent = message;
+                messageDiv.className = type; // Ajustado para aplicar la clase de tipo
+            };
+
+            const updatePaymentDetails = () => {
+                const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                paymentDetails.innerHTML = selectedMethod === 'creditCard' ? creditCardForm : yapeForm;
+
+                if (selectedMethod === 'creditCard') {
+                    attachCardEvents();
+                } else {
+                    attachYapeEvents();
+                }
+            };
+
+            payButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                let isValid = false;
+
+                if (selectedMethod === 'creditCard') {
+                    const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g, '');
+                    const expiryDate = document.getElementById('expiryDate').value;
+                    const cvv = document.getElementById('cvv').value;
+
+                    if (cardNumber.length === 16 && /^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate) && /^\d{3}$/
+                        .test(cvv)) {
+                        isValid = true;
+                    } else {
+                        showMessage('Por favor, completa todos los campos correctamente.', 'error');
+                    }
+                } else {
+                    const phoneNumber = document.getElementById('phoneNumber').value;
+                    const yapeCode = document.getElementById('yapeCode').value;
+
+                    if (phoneNumber.length === 9 && /^\d{6}$/.test(yapeCode)) {
+                        isValid = true;
+                    } else {
+                        showMessage('Por favor, completa todos los campos correctamente.', 'error');
+                    }
+                }
+
+                if (isValid) {
+                    const canchaId = $('#canchaId').val();
+                    const fecha = $('#datepickerDisplay').val();
+                    const hora = $('#horaDisplay').val();
+                    const costo = $('#costoDisplay').val();
+
+                    $.ajax({
+                        url: '{{ route('reservar.store') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            cancha_id: canchaId,
+                            fecha: fecha,
+                            hora: hora,
+                            costo: costo,
+                            action: selectedMethod === 'creditCard' ? 'Tarjeta' :
+                                'Yape' // Acción basada en el método de pago
+                        },
+                        success: function(response) {
+                            alert('Reserva confirmada con éxito.');
+                            location.reload();
+                        },
+                        error: function(xhr) {
+                            if (xhr.status === 401) {
+                                window.location.href = '{{ route('login') }}';
+                            } else {
+                                showMessage('Error al procesar la reserva. Inténtalo de nuevo.',
+                                    'error');
+                            }
+                        }
+                    });
+                }
+            });
+
+            document.querySelectorAll('input[name="paymentMethod"]').forEach(input => {
+                input.addEventListener('change', updatePaymentDetails);
+            });
+
+            updatePaymentDetails();
+        });
+
         $(document).ready(function() {
-            // Inicializa el datepicker
             $("#datepicker").datepicker({
                 dateFormat: 'yy-mm-dd',
-                minDate: 0, // Esto asegura que solo se pueden seleccionar fechas de hoy en adelante
+                minDate: 0,
                 onSelect: function(dateText) {
-                    // Cuando se selecciona una fecha, obtener horas disponibles
                     var canchaId = $('#canchaId').val();
                     $.ajax({
                         url: "{{ route('get.available.hours') }}",
@@ -183,27 +562,28 @@
                             fecha: dateText
                         },
                         success: function(response) {
-                            // Llena el select con las horas disponibles
                             var selecthora = $('#selecthora');
                             selecthora.empty();
                             selecthora.append(
                                 '<option selected>Seleccione su hora</option>');
                             $.each(response.horas, function(index, hora) {
                                 var horaInicio = hora.value;
-                                var horaFin = moment(hora.value, 'HH:mm:ss').add(1, 'hours').format('HH:mm:ss');
-                                selecthora.append('<option value="' + horaInicio + '">' + horaInicio + ' - ' + horaFin + '</option>');
+                                var horaFin = moment(hora.value, 'HH:mm:ss').add(1,
+                                    'hours').format('HH:mm:ss');
+                                selecthora.append('<option value="' + horaInicio +
+                                    '">' + horaInicio + ' - ' + horaFin +
+                                    '</option>');
                             });
                         },
                         error: function() {
                             alert(
                                 'Error al obtener las horas disponibles. Inténtelo de nuevo.'
-                                );
+                            );
                         }
                     });
                 }
             });
 
-            // Actualiza el resumen de reserva cuando cambian la fecha o la hora
             $('#datepicker, #selecthora').change(updateSummary);
 
             function updateSummary() {
@@ -214,9 +594,9 @@
                 var afternoonPrice = {{ $precios->where('turno', 'noche')->first()->amount ?? 0 }};
 
                 if (selectedTime) {
-                    if (selectedTime >= '00:00' && selectedTime < '18:00') { // Mañana
+                    if (selectedTime >= '00:00' && selectedTime < '18:00') {
                         cost = morningPrice;
-                    } else { // Tarde
+                    } else {
                         cost = afternoonPrice;
                     }
                 }
@@ -226,7 +606,6 @@
                 $('#costoDisplay').val('S/. ' + cost.toFixed(2));
             }
 
-            // Confirmar reserva
             $('#confirmarReserva').on('click', function() {
                 $('#modalFecha').text($('#datepickerDisplay').val());
                 $('#modalHora').text($('#horaDisplay').val());
@@ -239,23 +618,24 @@
                 var hora = $('#horaDisplay').val();
                 var costo = $('#costoDisplay').val();
                 $.ajax({
-                    url: '{{ route('reservar.store') }}', // Reemplaza con tu ruta
+                    url: '{{ route('reservar.store') }}',
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
                         cancha_id: canchaId,
                         fecha: fecha,
                         hora: hora,
-                        costo: costo
+                        costo: costo,
+                        action: 'confirmar' // Indicador de que solo se confirma la reserva
+
                     },
                     success: function(response) {
                         alert('Reserva confirmada con éxito.');
                         location.reload();
                     },
                     error: function(xhr) {
-                        if (xhr.status === 401) { // Usuario no autenticado
-                            window.location.href =
-                            '{{ route('login') }}'; // Redirige a la página de login
+                        if (xhr.status === 401) {
+                            window.location.href = '{{ route('login') }}';
                         } else {
                             alert('Error al confirmar la reserva. Inténtalo de nuevo.');
                         }

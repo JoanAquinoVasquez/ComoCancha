@@ -183,7 +183,11 @@
                             aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="{{ route('dashboard') }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                @if(auth()->user()->hasRole('Cliente'))
+                                Mis reservas
+                                @else
                                 Dashboard
+                                @endif
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="user/profile">

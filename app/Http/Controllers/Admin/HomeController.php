@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Cancha;
 use App\Models\Deporte;
+use App\Models\Distrito;
 use App\Models\Horario;
+use App\Models\Pago;
 use App\Models\Reserva;
 use App\Models\Sede;
 use App\Models\User;
-use App\Models\Pago;
-use App\Models\Distrito;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -34,7 +34,7 @@ class HomeController extends Controller
 
             // Verificar si el usuario tiene el rol de cliente
             if ($user->hasRole('Cliente')) {
-                return redirect()->route('Cliente.inicio');
+                return redirect()->route('reservas');
             }
 
             if ($user->hasRole(['Administrador', 'Dueño'])) {
@@ -66,8 +66,8 @@ class HomeController extends Controller
                 $totalClientes = Reserva::whereHas('cancha', function ($query) use ($user) {
                     $query->where('user_id', $user->id);
                 })->distinct('user_id')->count('user_id');
-                
-                // Obtener el total de Ganancias que ha tenido la empresa a la que pertenece el usuario autenticado, 
+
+                // Obtener el total de Ganancias que ha tenido la empresa a la que pertenece el usuario autenticado,
                 $totalGanancias = Pago::whereHas('reserva.cancha', function ($query) use ($empresaId) {
                     $query->whereHas('user', function ($query) use ($empresaId) {
                         $query->where('empresa_id', $empresaId);
@@ -80,7 +80,7 @@ class HomeController extends Controller
                     'numHorarios' => $numHorarios,
                     'numReservas' => $numReservas,
                     'totalClientes' => $totalClientes,
-                    'totalGanancias' => $totalGanancias
+                    'totalGanancias' => $totalGanancias,
                 ]);
             }
         } else {
@@ -107,8 +107,8 @@ class HomeController extends Controller
                 $query->where('empresa_id', $empresaId);
             })->get();
 
-            return view('admin.miscanchas', ['canchas' => $canchasEmpresa, 'deportes' => $deportes , 'sedes' => $sedes]);
-        
+            return view('admin.miscanchas', ['canchas' => $canchasEmpresa, 'deportes' => $deportes, 'sedes' => $sedes]);
+
         } else {
             return redirect()->route('login');
         }
@@ -152,7 +152,7 @@ class HomeController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $empresaId = $user->empresa_id; // Definir la variable $empresaId
-    
+
             // Obtener todas las sedes creadas por los usuarios que pertenecen a la empresa a la que pertenece el usuario autenticado
             $sedes = Sede::whereHas('user', function ($query) use ($empresaId) {
                 $query->where('empresa_id', $empresaId);
@@ -160,7 +160,6 @@ class HomeController extends Controller
 
             $distritos = Distrito::all();
 
-    
             return view('admin.sedes', ['sedes' => $sedes, 'distritos' => $distritos]);
         } else {
             return redirect()->route('login');
@@ -168,12 +167,19 @@ class HomeController extends Controller
     }
     public function showReservas()
     {
-        // Obtener todas las reservas de las canchas de la empresa a la que pertenece el usuario autenticado
-        $reservas = Reserva::whereHas('cancha', function ($query) {
-            $query->whereHas('user', function ($query) {
-                $query->where('empresa_id', Auth::user()->empresa_id);
-            });
-        })->get();
+        $user = Auth::user(); // Obtener el usuario autenticado
+
+        if ($user->hasRole('Cliente')) {
+            // Si el usuario es un cliente, obtener solo las reservas asociadas a su ID de usuario
+            $reservas = Reserva::where('user_id', $user->id)->get();
+        } else {
+            // Obtener todas las reservas de las canchas de la empresa a la que pertenece el usuario autenticado
+            $reservas = Reserva::whereHas('cancha', function ($query) {
+                $query->whereHas('user', function ($query) {
+                    $query->where('empresa_id', Auth::user()->empresa_id);
+                });
+            })->get();
+        }
         return view('admin.reservas', ['reservas' => $reservas]);
     }
     public function showClientes()
@@ -182,7 +188,7 @@ class HomeController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $empresaId = $user->empresa_id; // Definir la variable $empresaId
-        
+
             // Verificar si el usuario tiene el rol de Dueño o Administrador
             if ($user->hasRole('Dueño') || $user->hasRole('Administrador')) {
                 $clientes = User::whereHas('reservas.cancha', function ($query) use ($empresaId) {
@@ -190,7 +196,7 @@ class HomeController extends Controller
                         $query->where('empresa_id', $empresaId);
                     });
                 })->distinct()->get();
-        
+
                 return view('admin.clientes', ['clientes' => $clientes]);
             } else {
                 return redirect()->route('home')->with('error', 'No tienes permiso para ver esta página.');
