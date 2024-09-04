@@ -37,14 +37,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Lista de Reservas</h6>
-                <div class="input-group ml-auto" style="width: 300px;">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
+
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -66,36 +59,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($reservas as $reserva)
-                                <tr>
-                                    <td>{{ $reserva->id }}</td>
-                                    <td>{{ $reserva->fecha_reserva }}</td>
-                                    <td>{{ $reserva->hora_inicio }}</td>
-                                    <td>{{ $reserva->hora_fin }}</td>
-                                    <td>
-                                        @if ($reserva->estado == 0)
-                                            Pendiente
-                                        @elseif($reserva->estado == 1)
-                                            Pagado
-                                        @endif
-                                    </td>
-                                    <td>{{ $reserva->user->name }}</td>
-                                    <td>{{ $reserva->cancha->tipo }}</td>
-                                    @if (!Auth::user()->hasRole('Cliente'))
-                                        <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#" data-bs-id="1">Eliminar</button>
-                                        </td>
-                                    @elseif ($reserva->estado == 0)
-                                        <td><button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal"
-                                            data-bs-target="#paymentModal" data-id="{{ $reserva->id }}">Pagar
-                                            Ahora</button></td>
-                                    @elseif($reserva->estado == 1)
-                                        <td> <a class="btn btn-success btn-sm me-2">Pagado</a> </td>
-                                    @endif
-                                </tr>
-                            @endforeach
+                        @foreach ($reservas as $reserva)
+                        <tr class="{{ $reserva->estado == 0 ? 'row-pendiente' : 'row-pagado' }}">
+                            <td>{{ $reserva->id }}</td>
+                            <td>{{ $reserva->fecha_reserva }}</td>
+                            <td>{{ $reserva->hora_inicio }}</td>
+                            <td>{{ $reserva->hora_fin }}</td>
+                            <td>
+                                @if ($reserva->estado == 0)
+                                <span>Pendiente</span>
+                                @elseif($reserva->estado == 1)
+                                <span>Pagado</span>
+                                @endif
+                            </td>
+                            <td>{{ $reserva->user->name }}</td>
+                            <td>{{ $reserva->cancha->tipo }}</td>
+                            @if (!Auth::user()->hasRole('Cliente'))
+                            <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#" data-bs-id="1">Eliminar</button>
+                            </td>
+                            @elseif ($reserva->estado == 0)
+                            <td><button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#paymentModal" data-id="{{ $reserva->id }}">Pagar Ahora</button></td>
+                            @elseif($reserva->estado == 1)
+                            <td><a class="btn btn-success btn-sm me-2">Pagado</a></td>
+                            @endif
+                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -323,6 +312,12 @@
             outline: none;
             box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
         }
+
+        .row-pendiente {
+            background-color: #f8d7da; /* Light red */
+        }
+        .row-pagado {
+            background-color: #d4edda; /* Light green */
     </style>
     <!-- Estilos de Bootstrap (puedes ajustar la versión según tu proyecto) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -624,4 +619,17 @@
             updatePaymentDetails();
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+
+<!-- jQuery (necesario para DataTables) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 @stop

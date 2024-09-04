@@ -15,9 +15,9 @@
                 {{ session('success') }}
             </div>
         @endif
-        
+
     </div>
-    
+
     <div class="row">
         <div class="col-md-6">
             <div class="p-3">
@@ -65,10 +65,10 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Fin Tabla-->
     </div>
-        
+
 
 @stop
 
@@ -138,6 +138,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 
 
 <!-- jQuery (necesario para DataTables) -->
