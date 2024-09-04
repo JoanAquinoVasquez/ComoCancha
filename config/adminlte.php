@@ -359,12 +359,12 @@ return [
             'icon' => 'fas fa-users',
             'can' => ['Administrador','Dueño'],
         ],
-        [
-            'text' => 'Administración',
-            'url' => '#',
-            'icon' => 'fas fa-tachometer-alt',
-           'can' => ['Administrador','Dueño'],
-        ],
+        // [
+        //     'text' => 'Administración',
+        //     'url' => '#',
+        //     'icon' => 'fas fa-tachometer-alt',
+        //    'can' => ['Administrador','Dueño'],
+        // ],
         ['header' => 'GESTIÓN DE RESERVAS'],
         [
             'text' => 'Clientes',

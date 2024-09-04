@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
         // Crear permisos
         $manageAdmin = Permission::create(['name' => 'Administrador']);
         $manageClients = Permission::create(['name' => 'Cliente']);
-        $manageDueño = Permission::create(['name' => 'Dueño']);
         // Crear roles
         $clienteRole = Role::create(['name' => 'Cliente']);
         $duenoRole = Role::create(['name' => 'Dueño']);
@@ -29,7 +28,7 @@ class UserSeeder extends Seeder
         ]);
 
         $duenoRole->givePermissionTo([
-            $manageDueño,
+            $manageAdmin,
         ]);
 
         $clienteRole->givePermissionTo([

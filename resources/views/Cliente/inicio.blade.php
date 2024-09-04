@@ -34,9 +34,9 @@
         <!---Imagenes-->
         <!---Imagenes-->
         <div class="container mt-5">
-            <div class="row justify-content-center g-2">
+            <div id="cancha-container" class="row justify-content-center g-2">
                 @foreach ($canchas as $cancha)
-                    <div class="col-md-5">
+                    <div class="col-md-5 cancha-item">
                         <div class="card h-100" style="width: 100%;">
                             <!-- Carousel -->
                             @if ($cancha->galeria->count() > 1)
@@ -67,7 +67,8 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $cancha->tipo }}</h5>
                                 <p class="card-text">{{ $cancha->descripcion }}</p>
-                                <p class="card-text"><strong>Ubicación:</strong> {{ $cancha->direccion }}</p>
+                                <p class="card-text deporte"><strong>Deporte:</strong> {{ $cancha->deporte->nombre }}</p>
+                                <p class="card-text ubicacion"><strong>Ubicación:</strong> {{ $cancha->direccion }}</p>
                                 <p class="card-text">
                                     <strong>Precio por hora en el Día: </strong> S/.
                                     {{ $cancha->precio->where('turno', 'mañana')->first()->amount ?? 'N/A' }}
@@ -77,7 +78,8 @@
                                     {{ $cancha->precio->where('turno', 'noche')->first()->amount ?? 'N/A' }}
                                 </p>
                                 <div class="mt-auto">
-                                    <a href="{{ route('Cliente.cancha', ['id' => $cancha->id]) }}" class="btn btn-success">Reservar</a>
+                                    <a href="{{ route('Cliente.cancha', ['id' => $cancha->id]) }}"
+                                        class="btn btn-success">Reservar</a>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +89,6 @@
         </div>
 
     </div>
-
 
 @stop
 
@@ -100,6 +101,10 @@
             /* Ajusta según sea necesario */
             object-fit: cover;
         }
+
+        .cancha-item {
+            display: block;
+        }
     </style>
     <!-- Estilos de Bootstrap (puedes ajustar la versión según tu proyecto) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -109,15 +114,43 @@
 
 @stop
 
-@section('js')
 
+<!-- jQuery (necesario para DataTables) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        console.log('Document ready');
 
-    <!-- jQuery (necesario para DataTables) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        $('#ubicacion').on('input', function() {
+            filterItems();
+        });
 
-    <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-@stop
+        $('#deporte').on('input', function() {
+            filterItems();
+        });
+
+        function filterItems() {
+            var ubicacionValue = $('#ubicacion').val().toLowerCase();
+            var deporteValue = $('#deporte').val().toLowerCase();
+
+            $('.cancha-item').each(function() {
+                var locationText = $(this).find('.ubicacion').text().toLowerCase();
+                var deporteText = $(this).find('.deporte').text().toLowerCase();
+
+                var showByUbicacion = locationText.includes(ubicacionValue);
+                var showByDeporte = deporteText.includes(deporteValue);
+
+                if (showByUbicacion && showByDeporte) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+</script>

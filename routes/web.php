@@ -49,7 +49,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/miscanchas/{id}', [CanchaController::class, 'update'])->name('canchas.update')->middleware('can:Administrador,Dueño');
     Route::delete('/miscanchas/{id}', [CanchaController::class, 'destroy'])->name('miscanchas.destroy')->middleware('can:Administrador,Dueño');
 
-    Route::post('/horarios', [HorarioController::class, 'store'])->name('horarios.store')->middleware('can:Administrador,Dueño');
+    Route::post('/horarios', [HorarioController::class, 'store'])->name('horarios.store')->middleware('can: Administrador, Dueño');
     Route::get('/horarios/{id}', [HorarioController::class, 'show'])->middleware('can:Administrador,Dueño');
     Route::put('/horarios/{id}', [HorarioController::class, 'update'])->name('horarios.update')->middleware('can:Administrador,Dueño');
     Route::delete('/horarios/{id}', [HorarioController::class, 'destroy'])->name('horarios.destroy')->middleware('can:Administrador,Dueño');
