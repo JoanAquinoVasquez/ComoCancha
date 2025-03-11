@@ -9,9 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    use HasRoles;
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
@@ -27,7 +29,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'empresa_id',
     ];
+    protected $table = 'user'; // Asegúrate de que esta línea esté presente
 
     /**
      * The attributes that should be hidden for serialization.
@@ -55,7 +59,7 @@ class User extends Authenticatable
     }
 
     public function adminlte_desc(){
-        return 'Administrador';
+        return $this->getRoleNames()->first() ?: 'Sin rol';
     }
 
     public function adminlte_profile_url(){
@@ -70,4 +74,19 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class);
+    }
+
+    public function reservas()
+    {
+        return $this->hasMany(Reserva::class);
+    }
+
+    public function canchas()
+    {
+        return $this->hasMany(Cancha::class, 'user_id');
+    }
 }

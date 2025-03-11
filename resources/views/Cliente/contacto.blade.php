@@ -6,7 +6,11 @@
             <div class="row contact rounded-4">
                 <div class="col-md-6 d-flex justify-content-center align-items-center">
                     <div class="contact-box">
+<<<<<<< HEAD
                         <img src="vendor/adminlte/dist/img/comocannchablanco.png" alt="Logo">
+=======
+                        <img src="vendor/adminlte/dist/img/comocannchablanco.png" alt="Logo" style="width: 500px; height:500px">
+>>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
                         <h1 class="text-center text-white">Como<b>Cancha</b></h1>
                         <p class="text-center text-white">Juega donde quieras, cuando quieras</p>
                     </div>

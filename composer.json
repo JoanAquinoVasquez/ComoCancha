@@ -17,6 +17,7 @@
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.0",
         "phpoffice/phpspreadsheet": "*",
+        "spatie/laravel-permission": "^6.9",
         "symfony/translation": "*"
     },
     "require-dev": {

@@ -2,17 +2,13 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User; // Asegúrate de importar la clase User
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
+<<<<<<< HEAD
 
         $users = [
             [
@@ -37,5 +33,22 @@ class DatabaseSeeder extends Seeder
         foreach ($users as $user) {
             User::create($user);
         }
+=======
+        $this->call([
+            EmpresaSeeder::class,
+            UserSeeder::class,
+            DepartamentoSeeder::class,
+            ProvinciaSeeder::class,
+            DistritoSeeder::class,
+            DeporteSeeder::class,
+            SedeSeeder::class,
+            CanchaSeeder::class,
+            ReservaSeeder::class,
+            PagoSeeder::class,
+            GaleriaSeeder::class,
+            HorarioSeeder::class,
+            PrecioSeeder::class,
+        ]);
+>>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
     }
 }

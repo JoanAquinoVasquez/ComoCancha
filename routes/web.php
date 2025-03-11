@@ -1,15 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PlanEstrategicoController;
-use App\Http\Controllers\ObjetivoEstrategicoController;
-use App\Http\Controllers\AnalisisInternoController;
-use App\Http\Controllers\AnalisisExternoController;
-use App\Http\Controllers\EstrategiaController;
-use App\Http\Controllers\IndicadorController;
-use App\Http\Controllers\PresupuestoController;
-use App\Http\Controllers\EvaluacionController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\CanchaController;
+use App\Http\Controllers\DeporteController;
+use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\SedeController;
 use App\Actions\Fortify\CreateNewUser;
 
 /*
@@ -27,9 +23,15 @@ use App\Actions\Fortify\CreateNewUser;
 //     return view('auth.register');
 // })->middleware('auth')->name('register');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'showInicio'])->name('Cliente.inicio');
+Route::get('/nosotros', [HomeController::class, 'showNosotros'])->name('Cliente.nosotros');
+
+Route::get('/nosotros', [HomeController::class, 'showNosotros'])->name('Cliente.nosotros');
+Route::get('/cancha/{id}', [HomeController::class, 'showCancha'])->name('Cliente.cancha');
+Route::get('/contacto', [HomeController::class, 'showContacto'])->name('Cliente.contacto');
+
+Route::post('/get-available-hours', [CanchaController::class, 'getAvailableHours'])->name('get.available.hours');
+
 
 // Rutas protegidas por autenticación
 
