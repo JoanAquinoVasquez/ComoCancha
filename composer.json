@@ -14,7 +14,7 @@
         "laravel/jetstream": "^4.2",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^3.0",
+        "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.0",
         "phpoffice/phpspreadsheet": "*",
         "symfony/translation": "*"

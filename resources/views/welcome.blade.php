@@ -60,7 +60,7 @@
 
             <!-- Columna para la imagen grande -->
             <div class="col-md-7 no-padding">
-                <img src="img/epg.jpg" alt="Imagen Grande" class="full-width-img">
+                <img src="img/canchas.jpg" alt="Imagen Grande" class="full-width-img">
             </div>
 
 
@@ -78,41 +78,13 @@
                         </div>
                     @endif
                 </div>
-                <img src="img/epglogo.png" alt="Imagen Pequeña" class="img-fluid mt-2">
+                <img src="img/comocancha.png" alt="Imagen Pequeña" class="img-fluid mt-2">
                 <!-- Imagen pequeña (logo u otra imagen) -->
 
             </div>
 
         </div>
     </div>
-    <!--
-        <div class="container">
-            <div class="row justify-content-center mt-5">
-            <div class="col-md-8 botones text-center">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-maestria">Maestrias</button>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".modal-doctorado">Doctorados</button>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target=".modal-segundaEspecialidad">Segunda Especialidad</button>
-            </div>
-            </div>
-        </div> -->
-
-
-
-
-
-
-    <!-- Modal - Formulario para Segunda Especialidad -->
-
-
-    <!--<select id="facultad">
-            <option value="ingenieria">Ingeniería</option>
-            <option value="ciencias">Ciencias</option>
-            <option value="humanidades">Humanidades</option>
-        </select>-->
-
-    <!--<select id="programas">
-            Opciones se agregarán dinámicamente aquí
-        </select>-->
 </body>
 
 
