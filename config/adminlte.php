@@ -64,11 +64,7 @@ return [
      */
 
     'logo' => 'Como<b>Cancha</b>',
-<<<<<<< HEAD
     'logo_img' => 'vendor/adminlte/dist/img/Logoepg-unprg.png',
-=======
-    'logo_img' => 'vendor/adminlte/dist/img/comocancha.png',
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -319,10 +315,6 @@ return [
             'text' => 'Dashboard',
             'url' => '/dashboard',
             'icon' => 'far fa-fw fa-file',
-<<<<<<< HEAD
-=======
-            'can' => ['Administrador','Dueño'],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
             //'label'       => 1,
             //'label_color' => 'success',
         ],
@@ -330,34 +322,21 @@ return [
             'text' => 'Mis Canchas',
             'url' => '/miscanchas',
             'icon' => 'fas fa-futbol',
-<<<<<<< HEAD
-=======
-           'can' => ['Administrador','Dueño'],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
         ],
         [
             'text' => 'Horarios',
             'url' => '/horarios',
             'icon' => 'fas fa-clock',
-<<<<<<< HEAD
-=======
-            'can' => ['Administrador','Dueño'],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
         ],
         [
             'text' => 'Deporte',
             'url' => '/deportes',
             'icon' => 'fa fa-flag',
-<<<<<<< HEAD
-=======
-            'can' => ['Administrador','Dueño'],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
         ],
         [
             'text' => 'Mis Sedes',
             'url' => '/sedes',
             'icon' => 'fas fa-map-marker-alt',
-<<<<<<< HEAD
         ],
         [
             'text' => 'Superficie',
@@ -369,61 +348,28 @@ return [
             'url' => '/servicios',
             'icon' => 'fas fa-briefcase',
         ],
-=======
-            'can' => ['Administrador','Dueño'],
-        ],
-        //  [
-        // 'text' => 'Superficie',
-        // 'url' => '/superficies',
-        // 'icon' => 'fas fa-ruler-vertical',
-        //],
-        //  [
-        //    'text' => 'Mis Servicios',
-        //   'url' => '/servicios',
-        //  'icon' => 'fas fa-briefcase',
-        // ],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
         [
             'text' => 'Usuarios',
             'url' => '/usuarios',
             'icon' => 'fas fa-users',
-<<<<<<< HEAD
         ],
         [
             'text' => 'Administración',
             'url' => '#',
             'icon' => 'fas fa-tachometer-alt',
         ],
-=======
-            'can' => ['Administrador','Dueño'],
-        ],
-        // [
-        //     'text' => 'Administración',
-        //     'url' => '#',
-        //     'icon' => 'fas fa-tachometer-alt',
-        //    'can' => ['Administrador','Dueño'],
-        // ],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
         ['header' => 'GESTIÓN DE RESERVAS'],
         [
             'text' => 'Clientes',
             'url' => '/clientes',
             'icon' => 'fas fa-user-shield',
-<<<<<<< HEAD
-=======
-            'can' => ['Administrador','Dueño'],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
         ],
         [
             'text' => 'Reservas',
             'url' => '/reservas',
             'icon' => 'fas fa-ticket-alt',
         ],
-<<<<<<< HEAD
         ['header' => 'GESTIÓN DE USUARIO'],
-=======
-        ['header' => 'GESTIÓN DE USUARIO', 'can' => 'Administrador',],
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
         [
             'text' => 'profile',
             'url' => 'user/profile',
@@ -437,7 +383,6 @@ return [
             'can' => ['Administrador','Dueño'],
         ],
         /*[
-<<<<<<< HEAD
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -491,61 +436,6 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],*/
-=======
-    'text' => 'multilevel',
-    'icon' => 'fas fa-fw fa-share',
-    'submenu' => [
-    [
-    'text' => 'level_one',
-    'url' => '#',
-    ],
-    [
-    'text' => 'level_one',
-    'url' => '#',
-    'submenu' => [
-    [
-    'text' => 'level_two',
-    'url' => '#',
-    ],
-    [
-    'text' => 'level_two',
-    'url' => '#',
-    'submenu' => [
-    [
-    'text' => 'level_three',
-    'url' => '#',
-    ],
-    [
-    'text' => 'level_three',
-    'url' => '#',
-    ],
-    ],
-    ],
-    ],
-    ],
-    [
-    'text' => 'level_one',
-    'url' => '#',
-    ],
-    ],
-    ],
-    ['header' => 'labels'],
-    [
-    'text' => 'important',
-    'icon_color' => 'red',
-    'url' => '#',
-    ],
-    [
-    'text' => 'warning',
-    'icon_color' => 'yellow',
-    'url' => '#',
-    ],
-    [
-    'text' => 'information',
-    'icon_color' => 'cyan',
-    'url' => '#',
-    ],*/
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
     ],
 
     /*

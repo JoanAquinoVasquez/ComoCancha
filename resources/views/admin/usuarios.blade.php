@@ -15,15 +15,9 @@
                 {{ session('success') }}
             </div>
         @endif
-<<<<<<< HEAD
-        
-    </div>
-    
-=======
 
     </div>
 
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
     <div class="row">
         <div class="col-md-6">
             <div class="p-3">
@@ -40,17 +34,6 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Lista de Usuarios</h6>
-<<<<<<< HEAD
-                <div class="input-group ml-auto" style="width: 300px;">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-=======
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -58,42 +41,13 @@
                         <thead>
                             <tr>
                                 <th>IdUsuario</th>
-<<<<<<< HEAD
-                                <th>Nombre</th>
-                                <th>Rol</th>
-                                <th>Correo</th>
-=======
                                 <th>Nombres</th>
                                 <th>Correo</th>
                                 <th>Rol</th>
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-<<<<<<< HEAD
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>                            
-                                <td>$320,800</td>
-                                <td>princesitovaliente@tubebe.com</td>
-                                <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#" data-bs-id="1">Eliminar</button></td>
-                            </tr>
-                            <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>$320,800</td>
-                                <td>princesitovaliente@tubebe.com</td>
-                                <td><a href="#" class="btn btn-warning btn-sm me-2">Editar</a>
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#" data-bs-id="1">Eliminar</button></td>
-                            </tr>
-                            
-=======
                             @foreach($usuarios as $usuario)
                             <tr>
                                 <td>{{ $usuario->id }}</td>
@@ -106,23 +60,15 @@
                                         data-bs-target="#" data-bs-id="1">Eliminar</button></td>
                             </tr>
                             @endforeach
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-        
-        <!--Fin Tabla-->
-    </div>
-        
-=======
 
         <!--Fin Tabla-->
     </div>
 
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
 
 @stop
 
@@ -183,23 +129,16 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-=======
 <script>
     $(document).ready(function() {
         $('#dataTable').DataTable();
     });
 </script>
 
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
 <!-- jQuery (necesario para DataTables) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-<<<<<<< HEAD
 @stop
-=======
-@stop
->>>>>>> eb758ae0447cfcba8018a944f9e05cb22e5670f0
